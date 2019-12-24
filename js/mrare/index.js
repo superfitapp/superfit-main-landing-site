@@ -1,7 +1,6 @@
 
 import './aos';
 import './background-images';
-import mrCountdown from './countdown';
 import mrCountup from './countup';
 import mrDropdownGrid from './dropdown-grid';
 import './fade-page';
@@ -34,7 +33,6 @@ import './wizard';
 })();
 
 export {
-  mrCountdown,
   mrCountup,
   mrDropdownGrid,
   mrFlatpickr,
