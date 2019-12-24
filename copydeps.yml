@@ -51,18 +51,6 @@
    from: "node_modules/popper.js/dist/umd"
    to: "pages/assets/js"
 - 
-   files: "prism.js"
-   from: "node_modules/prismjs"
-   to: "pages/assets/js"
-- 
-   files: "prism.css"
-   from: "node_modules/prismjs/themes"
-   to: "scss/custom/components/plugins"
-- 
-   files: "prism-okaidia.css"
-   from: "node_modules/prismjs/themes"
-   to: "scss/custom/components/plugins"
-- 
    files:
      - "scrollMonitor.js"
      - "scrollMonitor.js.map"
