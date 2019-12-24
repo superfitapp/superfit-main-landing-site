@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "production": "website-build-prod",
+    "staging": "superfit-staging-dev"
+  },
+  "targets": {
+    "website-build-prod": {
+      "hosting": {
+        "onsuperfit-prod": [
+          "onsuperfit-prod"
+        ]
+      }
+    },
+    "superfit-staging-dev": {
+      "hosting": {
+        "onsuperfit-staging-dev": [
+          "onsuperfit-staging-dev"
+        ]
+      }
+    }
+  }
+}
