@@ -27,10 +27,6 @@
    from: "node_modules/flickity/dist"
    to: "scss/custom/components/plugins"
 -
-   files: "ion.rangeSlider.min.js"
-   from: "node_modules/ion-rangeslider/js"
-   to: "pages/assets/js"
--
    files: "ion.rangeSlider.css"
    from: "node_modules/ion-rangeslider/css"
    to: "scss/custom/components/plugins"
