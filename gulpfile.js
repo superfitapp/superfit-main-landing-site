@@ -240,7 +240,6 @@ gulp.task('mrarejs', async (done) => {
   let fileDest = 'theme.js';
   const banner = ``;
   const external = [...theme.scripts.external];
-  console.log(theme.minify_scripts === true)
   const plugins = [
     rollupCommonjs(),
     rollupResolve({

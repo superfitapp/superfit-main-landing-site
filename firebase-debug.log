@@ -1,0 +1,13 @@
+[debug] [2019-12-25T20:29:07.255Z] ----------------------------------------------------------------------
+[debug] [2019-12-25T20:29:07.257Z] Command:       /Users/leokwan/.nvm/versions/node/v10.15.3/bin/node /Users/leokwan/.nvm/versions/node/v10.15.3/bin/firebase use production
+[debug] [2019-12-25T20:29:07.257Z] CLI Version:   7.10.0
+[debug] [2019-12-25T20:29:07.257Z] Platform:      darwin
+[debug] [2019-12-25T20:29:07.257Z] Node Version:  v10.15.3
+[debug] [2019-12-25T20:29:07.258Z] Time:          Wed Dec 25 2019 15:29:07 GMT-0500 (Eastern Standard Time)
+[debug] [2019-12-25T20:29:07.258Z] ----------------------------------------------------------------------
+[debug] [2019-12-25T20:29:07.258Z] 
+[debug] [2019-12-25T20:29:07.270Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-25T20:29:07.271Z] > authorizing via signed-in user
+[debug] [2019-12-25T20:29:07.273Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-12-25T20:29:07.274Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
