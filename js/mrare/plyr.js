@@ -6,4 +6,7 @@
 
 import Plyr from 'plyr';
 
-Plyr.setup('[data-provider],.plyr');
+if (Plyr) {
+  Plyr.setup('[data-provider],.plyr');
+}
+

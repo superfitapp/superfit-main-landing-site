@@ -81,10 +81,6 @@
    from: "node_modules/aos/dist"
    to: "pages/assets/js"
 - 
-   files: "twitterFetcher_min.js"
-   from: "node_modules/twitter-fetcher/js"
-   to: "pages/assets/js"
-- 
    files: 
      - "jarallax.min.js"
      - "jarallax-video.min.js"
