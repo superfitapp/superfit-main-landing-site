@@ -6,4 +6,4 @@ Disallow: /nogooglebot/
 User-agent: *
 Allow: /
 
-Sitemap: https://www.onsuperfit.com/sitemap.xml
+Sitemap: https://www.superfitapp.com/sitemap.xml
