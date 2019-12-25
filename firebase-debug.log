@@ -1,0 +1,23 @@
+[debug] [2019-12-25T07:20:49.258Z] ----------------------------------------------------------------------
+[debug] [2019-12-25T07:20:49.260Z] Command:       /Users/leokwan/.nvm/versions/node/v10.15.3/bin/node /Users/leokwan/.nvm/versions/node/v10.15.3/bin/firebase deploy --only hosting
+[debug] [2019-12-25T07:20:49.260Z] CLI Version:   7.10.0
+[debug] [2019-12-25T07:20:49.260Z] Platform:      darwin
+[debug] [2019-12-25T07:20:49.260Z] Node Version:  v10.15.3
+[debug] [2019-12-25T07:20:49.261Z] Time:          Wed Dec 25 2019 02:20:49 GMT-0500 (Eastern Standard Time)
+[debug] [2019-12-25T07:20:49.261Z] ----------------------------------------------------------------------
+[debug] [2019-12-25T07:20:49.261Z] 
+[debug] [2019-12-25T07:20:49.272Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-25T07:20:49.272Z] > authorizing via signed-in user
+[debug] [2019-12-25T07:20:49.272Z] [iam] checking project website-build-prod for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-12-25T07:20:49.274Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/website-build-prod:testIamPermissions  
+
+[debug] [2019-12-25T07:20:49.589Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-25T07:20:49.592Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/website-build-prod  
+ 
+[debug] [2019-12-25T07:20:49.848Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'website-build-prod'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-12-25T07:20:49.852Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/superfit/versions  
+
