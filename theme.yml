@@ -1,6 +1,7 @@
-name: 'Leap Bootstrap Theme'
-shortName: Leap
+name: 'SuperFit - Sports & Fitness Workouts App'
+shortName: SuperFit
 theme_version: 2.0.0
+minify_scripts: true
 bootstrap_version: 4.3.1
 domain: leap
 scripts:
@@ -25,9 +26,6 @@ scripts:
         jquery: jQuery
         isotope-layout: Isotope
         plyr: Plyr
-        prismjs: Prism
         scrollmonitor: scrollMonitor
         smooth-scroll: SmoothScroll
         '@tanem/svg-injector': SVGInjector
-        twitter-fetcher: twitterFetcher
-        typed.js: Typed

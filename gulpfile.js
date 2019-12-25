@@ -240,12 +240,14 @@ gulp.task('mrarejs', async (done) => {
   let fileDest = 'theme.js';
   const banner = ``;
   const external = [...theme.scripts.external];
+  console.log(theme.minify_scripts === true)
   const plugins = [
     rollupCommonjs(),
     rollupResolve({
       browser: true,
     }),
     rollupBabel(babelConfig),
+
     theme.minify_scripts === true ? rollupUglify({
       output: {
         comments: "/^!/"
