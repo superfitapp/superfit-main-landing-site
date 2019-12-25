@@ -4,3 +4,4 @@ node_modules
 .env.development
 .env.testing
 firebase-key.json
+dist

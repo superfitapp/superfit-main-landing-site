@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "cleanUrls": true,
     "target": "onsuperfit-staging-dev",
     "public": "dist",
     "ignore": [
