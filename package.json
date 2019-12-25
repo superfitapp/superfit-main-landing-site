@@ -1,9 +1,9 @@
 {
-  "author": "Medium Rare",
+  "author": "SuperFit",
   "private": true,
-  "name": "leap",
-  "version": "2.0.0",
-  "description": "Software and SaaS Bootstrap Theme",
+  "name": "superfit",
+  "version": "1.0.0",
+  "description": "SuperFit Workouts is a free iOS app, start a training plan today.",
   "main": "gulpfile.js",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
@@ -34,7 +34,6 @@
     "countup.js": "~2.0.2",
     "flatpickr": "~4.6.1",
     "flickity": "~2.2.0",
-    "inter-ui": "^3.9.0",
     "ion-rangeslider": "~2.3.0",
     "isotope-layout": "~3.0.6",
     "jarallax": "^1.11.0",

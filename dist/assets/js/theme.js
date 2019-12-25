@@ -1,7 +1,3 @@
-/*!
-  * Leap Bootstrap Theme
-  * Copyright 2018-2019 Medium Rare (undefined)
-  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('scrollmonitor'), require('flickity'), require('jarallax'), require('plyr'), require('smooth-scroll'), require('@tanem/svg-injector')) :
   typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'scrollmonitor', 'flickity', 'jarallax', 'plyr', 'smooth-scroll', '@tanem/svg-injector'], factory) :

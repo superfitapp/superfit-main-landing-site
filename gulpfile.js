@@ -64,6 +64,7 @@ getPaths = () => {
       folder: 'pages',
       all: ['pages/**/*'],
       html: 'pages/*.html',
+      xml: 'pages/*.xml',
       liquid: 'pages/**/*.liquid',
       liquidRoot: 'pages/',
       includes: 'pages/include/',
@@ -197,11 +198,7 @@ gulp.task('sass-min', function () {
 
 gulp.task('bootstrapjs', async (done) => {
   let fileDest = 'bootstrap.js';
-  const banner = `/*!
-  * Bootstrap v${theme.bootstrap_version}
-  * Copyright 2011-${year} The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  */`;
+  const banner = ``;
   const external = ['jquery', 'popper.js'];
   const plugins = [
     rollupBabel(babelConfig),
@@ -241,10 +238,7 @@ gulp.task('mrarejs', async (done) => {
     .pipe(eslint.format());
 
   let fileDest = 'theme.js';
-  const banner = `/*!
-  * ${theme.name}
-  * Copyright 2018-${year} Medium Rare (${theme.purchase_link})
-  */`;
+  const banner = ``;
   const external = [...theme.scripts.external];
   const plugins = [
     rollupCommonjs(),

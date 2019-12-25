@@ -109,12 +109,6 @@
    from: "node_modules/plyr/dist"
    to: "pages/assets/js"
 -
-   files:
-     - "*.woff"
-     - "*.woff2"
-   from: "node_modules/inter-ui/Inter UI (web)"
-   to: "assets/fonts"
--
   files: "jquery.smartWizard.min.js"
   from: "node_modules/smartwizard/dist/js"
   to: "pages/assets/js"
