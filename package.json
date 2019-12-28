@@ -8,8 +8,8 @@
   "scripts": {
     "start": "./node_modules/.bin/gulp",
     "postinstall": "gulp deps",
-    "deploy-prod": "npm run swap-prod && firebase use production && firebase deploy --only hosting",
-    "deploy-staging": "npm run swap-staging && firebase use staging && firebase deploy --only hosting",
+    "deploy-prod": "gulp build && npm run swap-prod && firebase use production && firebase deploy --only hosting",
+    "deploy-staging": "gulp build && npm run swap-staging && firebase use staging && firebase deploy --only hosting",
     "swap-prod": "cp prod.firebase.json firebase.json",
     "swap-staging": "cp staging.firebase.json firebase.json"
   },
