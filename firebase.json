@@ -1,7 +1,7 @@
 {
   "hosting": {
     "cleanUrls": true,
-    "target": "onsuperfit-staging-dev",
+    "target": "main-website-production",
     "public": "dist",
     "ignore": [
       "firebase.json",
