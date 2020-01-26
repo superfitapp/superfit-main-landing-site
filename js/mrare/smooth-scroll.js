@@ -11,6 +11,8 @@ import jQuery from 'jquery';
 const mrSmoothScroll = (($) => {
   const smoothScroll = new SmoothScroll('a[data-smooth-scroll]',
     {
+      speed: 400,
+      speedAsDuration: true,
       offset: $('body').attr('data-smooth-scroll-offset')
         || 0,
     });
