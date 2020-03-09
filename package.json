@@ -15,30 +15,30 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~7.2.0",
-    "@angular/common": "~7.2.0",
-    "@angular/compiler": "~7.2.0",
-    "@angular/core": "~7.2.0",
-    "@angular/forms": "~7.2.0",
-    "@angular/platform-browser": "~7.2.0",
-    "@angular/platform-browser-dynamic": "~7.2.0",
-    "@angular/router": "~7.2.0",
+    "@angular/animations": "~8.2.14",
+    "@angular/common": "~8.2.14",
+    "@angular/compiler": "~8.2.14",
+    "@angular/core": "~8.2.14",
+    "@angular/forms": "~8.2.14",
+    "@angular/platform-browser": "~8.2.14",
+    "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/router": "~8.2.14",
     "angulartics2": "^7.5.2",
     "auth0-js": "^9.12.1",
     "branch-sdk": "^2.52.3",
     "compression": "^1.7.4",
     "core-js": "^2.6.11",
-    "rxjs": "~6.3.3",
+    "rxjs": "~6.5.4",
     "superfitjs": "github:superfitapp/superfit-shared-js#master",
     "tslib": "^1.10.0",
     "uuid": "^3.3.3",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.13.0",
-    "@angular/cli": "~7.3.9",
-    "@angular/compiler-cli": "~7.2.0",
-    "@angular/language-service": "~7.2.0",
+    "@angular-devkit/build-angular": "~0.803.25",
+    "@angular/cli": "~8.3.25",
+    "@angular/compiler-cli": "~8.2.14",
+    "@angular/language-service": "~8.2.14",
     "@types/auth0-js": "^8.11.2",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "^2.0.8",
@@ -54,6 +54,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "typescript": "~3.5.3"
   }
 }
