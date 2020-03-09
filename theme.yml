@@ -8,18 +8,13 @@ scripts:
         - aos
         - jquery
         - jquery-countdown
-        - isotope-layout
-        - jarallax
         - prismjs
         - scrollmonitor
-        - smartwizard
         - typed.js
     globals:
         aos: AOS
         countup.js: CountUp
-        jarallax: jarallax
         jquery: jQuery
-        isotope-layout: Isotope
         prismjs: Prism
         scrollmonitor: scrollMonitor
         typed.js: Typed

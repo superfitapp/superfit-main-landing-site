@@ -2,16 +2,15 @@
   * SuperFit - Sports Workout App
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('jquery-countdown'), require('scrollmonitor'), require('jarallax')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'scrollmonitor', 'jarallax', 'prismjs', 'typed.js'], factory) :
-      (global = global || self, factory(global.theme = {}, global.AOS, global.jQuery, null, global.scrollMonitor, null, global.jarallax, global.Prism, global.SmoothScroll, global.Typed));
-}(this, function (exports, AOS, jQuery$1, scrollMonitor, jarallax, SmoothScroll) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('jquery-countdown'), require('scrollmonitor')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'scrollmonitor', 'prismjs', 'typed.js'], factory) :
+      (global = global || self, factory(global.theme = {}, global.AOS, global.jQuery, null, global.scrollMonitor, null, global.Prism, global.SmoothScroll, global.Typed));
+}(this, function (exports, AOS, jQuery$1, scrollMonitor, SmoothScroll) {
   'use strict';
 
   AOS = AOS && AOS.hasOwnProperty('default') ? AOS['default'] : AOS;
   jQuery$1 = jQuery$1 && jQuery$1.hasOwnProperty('default') ? jQuery$1['default'] : jQuery$1;
   scrollMonitor = scrollMonitor && scrollMonitor.hasOwnProperty('default') ? scrollMonitor['default'] : scrollMonitor;
-  jarallax = jarallax && jarallax.hasOwnProperty('default') ? jarallax['default'] : jarallax;
   SmoothScroll = SmoothScroll && SmoothScroll.hasOwnProperty('default') ? SmoothScroll['default'] : SmoothScroll;
 
   //

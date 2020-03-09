@@ -35,9 +35,6 @@
               "src/assets/js/aos.js",
               "src/assets/js/svg-injector.umd.production.js",
               "src/assets/js/clipboard.js",
-              "src/assets/js/jarallax.min.js",
-              "src/assets/js/jarallax-video.min.js",
-              "src/assets/js/jarallax-element.min.js",
               "src/assets/js/theme.js"
             ],
             "es5BrowserSupport": true
