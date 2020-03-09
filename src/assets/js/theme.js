@@ -2,19 +2,17 @@
   * SuperFit - Sports Workout App
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('jquery-countdown'), require('scrollmonitor'), require('flatpickr'), require('flickity'), require('ion-rangeslider'), require('isotope-layout'), require('jarallax'), require('plyr'), require('prismjs'), require('typed.js'), require('smartwizard')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'jquery-countdown', 'scrollmonitor', 'flatpickr', 'flickity', 'ion-rangeslider', 'isotope-layout', 'jarallax', 'plyr', 'prismjs', 'typed.js', 'smartwizard'], factory) :
-      (global = global || self, factory(global.theme = {}, global.AOS, global.jQuery, null, global.scrollMonitor, global.flatpickr, global.Flickity, null, global.Isotope, global.jarallax, global.Plyr, global.Prism, global.SmoothScroll, global.Typed));
-}(this, function (exports, AOS, jQuery$1, jqueryCountdown, scrollMonitor, flatpickr, Flickity, ionRangeslider, Isotope$1, jarallax, Plyr, Prism, SmoothScroll, Typed) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('jquery-countdown'), require('scrollmonitor'), require('flatpickr'), require('jarallax')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'scrollmonitor', 'flatpickr', 'jarallax', 'prismjs', 'typed.js', 'smartwizard'], factory) :
+      (global = global || self, factory(global.theme = {}, global.AOS, global.jQuery, null, global.scrollMonitor, global.flatpickr, null, global.Isotope, global.jarallax, global.Prism, global.SmoothScroll, global.Typed));
+}(this, function (exports, AOS, jQuery$1, scrollMonitor, flatpickr, jarallax, SmoothScroll) {
   'use strict';
 
   AOS = AOS && AOS.hasOwnProperty('default') ? AOS['default'] : AOS;
   jQuery$1 = jQuery$1 && jQuery$1.hasOwnProperty('default') ? jQuery$1['default'] : jQuery$1;
   scrollMonitor = scrollMonitor && scrollMonitor.hasOwnProperty('default') ? scrollMonitor['default'] : scrollMonitor;
   flatpickr = flatpickr && flatpickr.hasOwnProperty('default') ? flatpickr['default'] : flatpickr;
-  Flickity = Flickity && Flickity.hasOwnProperty('default') ? Flickity['default'] : Flickity;
   jarallax = jarallax && jarallax.hasOwnProperty('default') ? jarallax['default'] : jarallax;
-  Plyr = Plyr && Plyr.hasOwnProperty('default') ? Plyr['default'] : Plyr;
   SmoothScroll = SmoothScroll && SmoothScroll.hasOwnProperty('default') ? SmoothScroll['default'] : SmoothScroll;
 
   //
@@ -976,21 +974,6 @@
     return Flatpickr;
   }(jQuery$1);
 
-  //
-
-  (function () {
-    $(document).on('shown.bs.modal layoutComplete', function (e) {
-      var flickityInstance = $(e.target).find('[data-flickity]');
-      flickityInstance.each(function (index, instance) {
-        var $instance = $(instance);
-
-        if ($instance.data().flickity.isInitActivated) {
-          $instance.flickity('resize');
-        }
-      });
-    });
-  })(jQuery$1);
-
   var mrRecaptchav2 = function ($) {
     // Check mrUtil is present and correct version
     if (!(mrUtil && mrUtil.version >= '1.2.0')) {
@@ -1208,365 +1191,6 @@
     return Recaptchav2;
   }(jQuery);
 
-  var mrFormEmail = function ($) {
-    // Check mrUtil is present and correct version
-    if (!(mrUtil && mrUtil.version >= '1.2.0')) {
-      throw new Error('mrUtil >= version 1.2.0 is required.');
-    }
-    /**
-     * ------------------------------------------------------------------------
-     * Constants
-     * ------------------------------------------------------------------------
-     */
-
-
-    var NAME = 'mrFormEmail';
-    var VERSION = '1.0.0';
-    var DATA_KEY = 'mr.formEmail';
-    var EVENT_KEY = "." + DATA_KEY;
-    var DATA_API_KEY = '.data-api';
-    var JQUERY_NO_CONFLICT = $.fn[NAME];
-    var ClassName = {
-      LOADING: 'btn-loading-animate',
-      WAS_VALIDATED: 'was-validated',
-      D_NONE: 'd-none'
-    };
-    var Attribute = {
-      ACTION: 'action',
-      DISABLED: 'disabled',
-      FEEDBACK_DELAY: 'data-feedback-delay',
-      SUCCESS_REDIRECT: 'data-success-redirect'
-    };
-    var Selector = {
-      DATA_ATTR: 'form-email',
-      DATA_FORM_EMAIL: '[data-form-email]',
-      DATA_SUCCESS: '[data-success-message]',
-      DATA_ERROR: '[data-error-message]',
-      SUBMIT_BUTTON: 'button[type="submit"]',
-      SPAN: 'span',
-      ALL_INPUTS: 'input,textarea,select'
-    };
-    var Event = {
-      SENT: "sent" + EVENT_KEY,
-      LOAD_DATA_API: "load" + EVENT_KEY + DATA_API_KEY,
-      SUBMIT: 'submit'
-    };
-    var Options = {
-      LOADING_TEXT: 'data-loading-text'
-    };
-    var Default = {
-      LOADING_TEXT: 'Sending',
-      FORM_ACTION: 'forms/mail.php',
-      FEEDBACK_DELAY: 5000,
-      ERROR_TEXT: 'Form submission error'
-    };
-    var Status = {
-      SUCCESS: 'success',
-      ERROR: 'error'
-    };
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
-    var FormEmail =
-      /*#__PURE__*/
-      function () {
-        function FormEmail(element) {
-          this.form = element;
-          this.action = this.form.getAttribute(Attribute.ACTION) || Default.FORM_ACTION; // Returns an object containing the feedback
-
-          this.feedback = this.getFeedbackElements(); // Get any recaptcha instances in the form - returns array of instances or null
-
-          this.getRecaptcha(); // Get submit button, inner span and loading text.
-
-          this.initSubmitButton(); // const $element = $(element);
-
-          this.setSubmitEvent();
-        } // getters
-
-
-        var _proto = FormEmail.prototype;
-
-        _proto.submitForm = function submitForm() {
-          // Hide feedback mesages for fresh submit
-          this.hideAllFeedback(); // Submit form if validateForm returns true
-
-          if (this.validateForm()) {
-            this.ajaxSubmit();
-          }
-        };
-
-        _proto.validateForm = function validateForm() {
-          var formIsValid = this.form.checkValidity();
-
-          if (this.recaptcha) {
-            if (this.recaptcha.invisible) {
-              if (formIsValid && !this.recaptcha.checkValidity()) {
-                this.recaptcha.execute();
-                return false;
-              } // invalidate if captcha is found and is not valid, otherwise keep original value
-
-            } else if (this.recaptcha.checkValidity() === false) {
-              formIsValid = false;
-            }
-          }
-
-          if (!formIsValid) {
-            // Cancel timeout so error message will stay shown
-            clearTimeout(this.feedbackTimeout); // Allow BS validation styles to take effect
-
-            this.form.classList.add(ClassName.WAS_VALIDATED);
-            this.showFeedback(Status.ERROR, this.validationErrorMessage);
-            return false;
-          }
-
-          this.form.classList.remove(ClassName.WAS_VALIDATED);
-          return true;
-        };
-
-        _proto.ajaxSubmit = function ajaxSubmit() {
-          var $form = $(this.form);
-          var formData = $form.serializeArray();
-          formData.push({
-            name: 'url',
-            value: window.location.href
-          });
-          jQuery$1.ajax({
-            context: this,
-            data: formData,
-            dataType: 'json',
-            error: this.showFeedback,
-            success: this.processResponse,
-            type: 'POST',
-            url: this.action
-          });
-          this.toggleFormLoading(true);
-        };
-
-        _proto.initSubmitButton = function initSubmitButton() {
-          if (!this.submitButton) {
-            this.submitButton = this.form.querySelector(Selector.SUBMIT_BUTTON);
-          }
-
-          this.submitButtonSpan = this.submitButton.querySelector(Selector.SPAN);
-          this.loadingText = this.submitButton.getAttribute(Options.LOADING_TEXT) || Default.LOADING_TEXT;
-          this.originalSubmitText = this.submitButtonSpan.textContent;
-          return this.submitButton;
-        };
-
-        _proto.processResponse = function processResponse(response) {
-          var _this = this;
-
-          var success = response.status === Status.SUCCESS; // Form is no longer in a 'loading' state
-
-          this.toggleFormLoading(false); // Recaptcha will need to be solved again
-
-          if (this.recaptcha) {
-            this.recaptcha.reset();
-          } // Trigger an event so users can fire Analytics scripts upon success
-
-
-          $(this.form).trigger($.Event(Event.SENT)); // Redirect upon success if data-attribute is set
-
-          var successRedirect = this.form.getAttribute(Attribute.SUCCESS_REDIRECT);
-
-          if (success && successRedirect && successRedirect !== '') {
-            window.location = successRedirect;
-          } else if (success) {
-            this.form.reset(); // Hide all feedback and hold a reference to the timeout
-            // to cancel it when necessary.
-
-            this.feedbackTimeout = setTimeout(function () {
-              return _this.hideAllFeedback();
-            }, this.feedbackDelay);
-          } //  Show ERROR feedback message if not redirecting
-
-
-          if (!successRedirect) {
-            this.showFeedback(response.status, response.message);
-          } // Detailed error message will be shown in Console if provided
-
-
-          if (response.errorDetail) {
-            /* eslint-disable no-console */
-            console.error(response.errorName || Default.ERROR_TEXT, response.errorDetail.indexOf('{') === 0 ? JSON.parse(response.errorDetail) : response.errorDetail);
-            /* eslint-enable no-console */
-          }
-        };
-
-        _proto.showFeedback = function showFeedback(status, text, errorHTTP) {
-          // Form is no longer in a 'loading' state
-          this.toggleFormLoading(false); // If this is an ajax error from jQuery, 'status' will be
-          // an object with statusText property
-
-          if (typeof status === 'object' && status.statusText) {
-            clearTimeout(this.feedbackTimeout);
-            this.feedback.error.innerHTML = (errorHTTP || text) + ": <em>\"" + this.action + "\"</em> (" + status.status + " " + text + ")";
-            this.feedback.error.classList.remove(ClassName.D_NONE);
-          } else {
-            this.feedback[status].innerHTML = text;
-            this.feedback[status].classList.remove(ClassName.D_NONE);
-          }
-        };
-
-        _proto.hideAllFeedback = function hideAllFeedback() {
-          this.feedback.success.classList.add(ClassName.D_NONE);
-          this.feedback.error.classList.add(ClassName.D_NONE);
-        };
-
-        _proto.getFeedbackElements = function getFeedbackElements() {
-          if (!this.feedback) {
-            this.feedback = {
-              success: this.form.querySelector(Selector.DATA_SUCCESS),
-              error: this.form.querySelector(Selector.DATA_ERROR)
-            }; // Store the error alert's original text to be used as validation error message
-
-            this.validationErrorMessage = this.feedback.error.innerHTML;
-            var feedbackDelay = this.form.getAttribute(Attribute.FEEDBACK_DELAY) || Default.FEEDBACK_DELAY;
-            this.feedbackDelay = parseInt(feedbackDelay, 10);
-            this.feedbackTimeout = null;
-          }
-
-          return this.feedback;
-        };
-
-        _proto.getRecaptcha = function getRecaptcha() {
-          if (this.form.querySelector(mrUtil.selector.RECAPTCHA)) {
-            // Check mrUtil is present and correct version
-            if (!mrRecaptchav2) {
-              throw new Error('mrRecaptcha.js is required to handle the reCAPTCHA element in this form.');
-            } else {
-              // Returns an array of mrRecaptcha instances or null
-              this.recaptcha = mrRecaptchav2.getRecaptchaFromForm(this.form);
-            }
-          }
-        };
-
-        _proto.toggleFormLoading = function toggleFormLoading(loading) {
-          this.toggleSubmitButtonLoading(loading);
-          FormEmail.toggleDisabled(this.form.querySelectorAll(Selector.ALL_INPUTS), loading);
-        };
-
-        _proto.toggleSubmitButtonLoading = function toggleSubmitButtonLoading(loading) {
-          this.toggleSubmitButtonText(loading);
-          this.toggleSubmitButtonAnimation(loading);
-          FormEmail.toggleDisabled(this.submitButton, loading);
-        };
-
-        _proto.toggleSubmitButtonAnimation = function toggleSubmitButtonAnimation(animate) {
-          // If animate is true, add the class, else remove it.
-          this.submitButton.classList[animate ? 'add' : 'remove'](ClassName.LOADING);
-        };
-
-        _proto.toggleSubmitButtonText = function toggleSubmitButtonText(loading) {
-          // If loading, set text to loading text, else return to original text.
-          this.submitButtonSpan.textContent = loading ? this.loadingText : this.originalSubmitText;
-        };
-
-        FormEmail.toggleDisabled = function toggleDisabled(elements, disabled) {
-          // If loading, set text to loading text, else return to original text.
-          mrUtil.forEach(elements, function (index, element) {
-            return element[disabled ? 'setAttribute' : 'removeAttribute'](Attribute.DISABLED, '');
-          });
-        };
-
-        FormEmail.getInstanceFromForm = function getInstanceFromForm(form) {
-          if (mrUtil.isElement(form)) {
-            var data = $(form).data(DATA_KEY);
-            return data || null;
-          }
-
-          throw new TypeError('Form argument passed to getInstanceFromForm is not an element.');
-        };
-
-        _proto.setSubmitEvent = function setSubmitEvent() {
-          var _this2 = this;
-
-          $(this.form).on(Event.SUBMIT, function (event) {
-            event.preventDefault();
-
-            _this2.submitForm();
-          });
-        };
-
-        FormEmail.jQueryInterface = function jQueryInterface() {
-          return this.each(function jqEachFormEmail() {
-            var $element = $(this);
-            var data = $element.data(DATA_KEY);
-
-            if (!data) {
-              data = new FormEmail(this);
-              $element.data(DATA_KEY, data);
-            }
-          });
-        };
-
-        _createClass(FormEmail, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION;
-          }
-        }]);
-
-        return FormEmail;
-      }();
-    /**
-     * ------------------------------------------------------------------------
-     * Initialise by data attribute
-     * ------------------------------------------------------------------------
-     */
-
-
-    $(window).on(Event.LOAD_DATA_API, function () {
-      var FormEmailElements = $.makeArray($(Selector.DATA_FORM_EMAIL));
-      /* eslint-disable no-plusplus */
-
-      for (var i = FormEmailElements.length; i--;) {
-        var $FormEmail = $(FormEmailElements[i]);
-        FormEmail.jQueryInterface.call($FormEmail, $FormEmail.data());
-      }
-    });
-    /**
-     * ------------------------------------------------------------------------
-     * jQuery
-     * ------------------------------------------------------------------------
-     */
-
-    /* eslint-disable no-param-reassign */
-
-    $.fn[NAME] = FormEmail.jQueryInterface;
-    $.fn[NAME].Constructor = FormEmail;
-
-    $.fn[NAME].noConflict = function FormEmailNoConflict() {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return FormEmail.jQueryInterface;
-    };
-    /* eslint-enable no-param-reassign */
-
-
-    return FormEmail;
-  }(jQuery$1);
-
-
-
-  //
-
-  (function ($) {
-    if (typeof jarallax === 'function') {
-      $('.alert-dismissible').on('closed.bs.alert', function () {
-        jarallax(document.querySelectorAll('[data-jarallax]'), 'onScroll');
-      });
-      $(document).on('resized.mr.overlayNav', function () {
-        jarallax(document.querySelectorAll('[data-jarallax]'), 'onResize');
-      });
-      jarallax(document.querySelectorAll('[data-jarallax]'), {
-        disableParallax: /iPad|iPhone|iPod|Android/,
-        disableVideo: /iPad|iPhone|iPod|Android/
-      });
-    }
-  })(jQuery$1);
 
   var mrOverlayNav = function ($) {
     /**
@@ -1757,10 +1381,6 @@
     return OverlayNav;
   }(jQuery$1);
 
-  //
-  Plyr.setup('[data-provider],.plyr');
-
-  //
 
   (function ($) {
     $(document).on('hide.bs.tab', function (evt) {
@@ -1771,262 +1391,263 @@
     });
   })(jQuery$1);
 
-  var mrSticky = function ($) {
-    /**
-     * Check for scrollMonitor dependency
-     * scrollMonitor - https://github.com/stutrek/scrollMonitor
-     */
-    if (typeof scrollMonitor === 'undefined') {
-      throw new Error('mrSticky requires scrollMonitor.js (https://github.com/stutrek/scrollMonitor)');
-    }
-    /**
-     * ------------------------------------------------------------------------
-     * Constants
-     * ------------------------------------------------------------------------
-     */
+
+  // var mrSticky = function ($) {
+  //   /**
+  //    * Check for scrollMonitor dependency
+  //    * scrollMonitor - https://github.com/stutrek/scrollMonitor
+  //    */
+  //   if (typeof scrollMonitor === 'undefined') {
+  //     throw new Error('mrSticky requires scrollMonitor.js (https://github.com/stutrek/scrollMonitor)');
+  //   }
+  //   /**
+  //    * ------------------------------------------------------------------------
+  //    * Constants
+  //    * ------------------------------------------------------------------------
+  //    */
 
 
-    var NAME = 'mrSticky';
-    var VERSION = '1.3.0';
-    var DATA_KEY = 'mr.sticky';
-    var EVENT_KEY = "." + DATA_KEY;
-    var DATA_API_KEY = '.data-api';
-    var JQUERY_NO_CONFLICT = $.fn[NAME];
-    var NO_OFFSET = 0;
-    var ClassName = {
-      FIXED_TOP: 'position-fixed',
-      ABSOLUTE_BOTTOM: 'sticky-bottom',
-      FIXED_BOTTOM: 'sticky-viewport-bottom',
-      SCROLLED: 'scrolled'
-    };
-    var Css = {
-      HEIGHT: 'min-height',
-      WIDTH: 'max-width',
-      SPACE_TOP: 'top',
-      SPACE_BOTTOM: 'bottom'
-    };
-    var Event = {
-      LOAD_DATA_API: "load" + EVENT_KEY + DATA_API_KEY,
-      WINDOW_RESIZE: 'resize',
-      ALERT_CLOSED: 'closed.bs.alert'
-    };
-    var Options = {
-      BELOW_NAV: 'below-nav',
-      TOP: 'top',
-      BOTTOM: 'bottom'
-    };
-    var Selector = {
-      DATA_ATTR: 'sticky',
-      DATA_STICKY: '[data-sticky]',
-      NAV_STICKY: 'body > div.navbar-container [data-sticky="top"]',
-      ALERT: '.alert-dismissible'
-    };
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
+  //   var NAME = 'mrSticky';
+  //   var VERSION = '1.3.0';
+  //   var DATA_KEY = 'mr.sticky';
+  //   var EVENT_KEY = "." + DATA_KEY;
+  //   var DATA_API_KEY = '.data-api';
+  //   var JQUERY_NO_CONFLICT = $.fn[NAME];
+  //   var NO_OFFSET = 0;
+  //   var ClassName = {
+  //     FIXED_TOP: 'position-fixed',
+  //     ABSOLUTE_BOTTOM: 'sticky-bottom',
+  //     FIXED_BOTTOM: 'sticky-viewport-bottom',
+  //     SCROLLED: 'scrolled'
+  //   };
+  //   var Css = {
+  //     HEIGHT: 'min-height',
+  //     WIDTH: 'max-width',
+  //     SPACE_TOP: 'top',
+  //     SPACE_BOTTOM: 'bottom'
+  //   };
+  //   var Event = {
+  //     LOAD_DATA_API: "load" + EVENT_KEY + DATA_API_KEY,
+  //     WINDOW_RESIZE: 'resize',
+  //     ALERT_CLOSED: 'closed.bs.alert'
+  //   };
+  //   var Options = {
+  //     BELOW_NAV: 'below-nav',
+  //     TOP: 'top',
+  //     BOTTOM: 'bottom'
+  //   };
+  //   var Selector = {
+  //     DATA_ATTR: 'sticky',
+  //     DATA_STICKY: '[data-sticky]',
+  //     NAV_STICKY: 'body > div.navbar-container [data-sticky="top"]',
+  //     ALERT: '.alert-dismissible'
+  //   };
+  //   /**
+  //    * ------------------------------------------------------------------------
+  //    * Class Definition
+  //    * ------------------------------------------------------------------------
+  //    */
 
-    var Sticky =
-      /*#__PURE__*/
-      function () {
-        function Sticky(element) {
-          var $element = $(element);
-          var stickyData = $element.data(Selector.DATA_ATTR);
-          var stickyUntil = $element.closest('section') || null;
-          this.element = element;
-          this.stickBelowNav = stickyData === Options.BELOW_NAV;
-          this.stickBottom = stickyData === Options.BOTTOM;
-          this.stickyUntil = stickyUntil;
-          this.updateNavProperties();
-          this.isNavElement = $element.is(this.navElement);
-          this.initWatcher($element);
-          this.updateCss();
-          this.setResizeEvent(); // Run a calculation immediately to show sticky elements if page starts
-          // at a half-scrolled position
+  //   var Sticky =
+  //     /*#__PURE__*/
+  //     function () {
+  //       function Sticky(element) {
+  //         var $element = $(element);
+  //         var stickyData = $element.data(Selector.DATA_ATTR);
+  //         var stickyUntil = $element.closest('section') || null;
+  //         this.element = element;
+  //         this.stickBelowNav = stickyData === Options.BELOW_NAV;
+  //         this.stickBottom = stickyData === Options.BOTTOM;
+  //         this.stickyUntil = stickyUntil;
+  //         this.updateNavProperties();
+  //         this.isNavElement = $element.is(this.navElement);
+  //         this.initWatcher($element);
+  //         this.updateCss();
+  //         this.setResizeEvent(); // Run a calculation immediately to show sticky elements if page starts
+  //         // at a half-scrolled position
 
-          this.onWatcherChange($element);
-          this.ticking = false; // for debouncing resize event with RequestAnimationFrame
-        } // getters
-
-
-        var _proto = Sticky.prototype;
-
-        _proto.initWatcher = function initWatcher(element) {
-          var _this = this;
-
-          var $element = $(element);
-          var notNavElement = !this.isNavElement;
-          var offset = this.stickBelowNav && this.navIsSticky && notNavElement ? {
-            top: this.navHeight
-          } : NO_OFFSET;
-          offset = this.stickBottom && notNavElement ? {
-            bottom: -$element.outerHeight
-          } : offset;
-          var watcher = scrollMonitor.create(element, offset); // ensure that we're always watching the place the element originally was
-
-          watcher.lock();
-          var untilWatcher = this.stickyUntil !== null ? scrollMonitor.create(this.stickyUntil, {
-            bottom: -(watcher.height + offset.top)
-          }) : null;
-          this.watcher = watcher;
-          this.untilWatcher = untilWatcher;
-          this.navHeight = this.navHeight; // For navs that start at top, stick them immediately to avoid a jump
-
-          if (this.isNavElement && watcher.top === 0 && !this.navIsAbsolute) {
-            $element.addClass(ClassName.FIXED_TOP);
-          }
-
-          watcher.stateChange(function () {
-            _this.onWatcherChange($element);
-          });
-
-          if (untilWatcher !== null) {
-            untilWatcher.exitViewport(function () {
-              // If the element is in a section, it will scroll up with the section
-              $element.addClass(ClassName.ABSOLUTE_BOTTOM);
-            });
-            untilWatcher.enterViewport(function () {
-              $element.removeClass(ClassName.ABSOLUTE_BOTTOM);
-            });
-          }
-        };
-
-        _proto.onWatcherChange = function onWatcherChange($element) {
-          // Add fixed when element leaves via top of viewport or if nav is sitting at top
-          $element.toggleClass(ClassName.FIXED_TOP, this.watcher.isAboveViewport || !this.navIsAbsolute && !this.stickBottom && this.isNavElement && this.watcher.top === 0); // Used to apply styles to the nav based on "scrolled" class
-          // independedly of position-fixed because that class is used for more practical reasons
-          // such as avoiding a jump on first scroll etc.
-
-          $element.toggleClass(ClassName.SCROLLED, this.watcher.isAboveViewport && this.isNavElement && !this.stickBottom); // Fix to bottom when element enters via bottom of viewport and has data-sticky="bottom"
-
-          $element.toggleClass(ClassName.FIXED_BOTTOM, (this.watcher.isFullyInViewport || this.watcher.isAboveViewport) && this.stickBottom);
-
-          if (!this.stickBottom) {
-            $element.css(Css.SPACE_TOP, this.watcher.isAboveViewport && this.navIsSticky && this.stickBelowNav ? this.navHeight : NO_OFFSET);
-          }
-        };
-
-        _proto.setResizeEvent = function setResizeEvent() {
-          var _this2 = this;
-
-          // Closing any alerts above the nav will mean we need to recalculate position.
-          $(Selector.ALERT).on(Event.ALERT_CLOSED, function () {
-            // An alert above the nav will cause odd sticky behaviour if
-            // the alert is dismissed and nav position is not recalculated,
-            // as scrollMonitor has locked the position of the watcher.
-            // Unlock and recalculate if the nav is in the viewport during alert close event.
-            if (_this2.watcher.isInViewport) {
-              _this2.watcher.unlock();
-
-              _this2.watcher.recalculateLocation();
-
-              _this2.watcher.lock();
-            }
-
-            _this2.onResize();
-          });
-          $(window).on(Event.WINDOW_RESIZE, function () {
-            _this2.onResize();
-          });
-        };
-
-        _proto.onResize = function onResize() {
-          var _this3 = this;
-
-          if (!this.ticking) {
-            window.requestAnimationFrame(function () {
-              _this3.updateCss();
-
-              _this3.ticking = false;
-            });
-            this.ticking = true;
-          }
-        };
-
-        _proto.updateCss = function updateCss() {
-          var $element = $(this.element); // Fix width by getting parent's width to avoid element spilling out when pos-fixed
-
-          $element.css(Css.WIDTH, $element.parent().width());
-          this.updateNavProperties();
-          var elemHeight = $element.outerHeight();
-          var notNavElement = !this.isNavElement; // Set a min-height to prevent "jumping" when sticking to top
-          // but not applied to the nav element itself unless it is overlay (absolute) nav
-
-          if (!this.navIsAbsolute && this.isNavElement || notNavElement) {
-            $element.parent().css(Css.HEIGHT, elemHeight);
-          }
-
-          if (this.navIsSticky && notNavElement) {
-            $element.css(Css.HEIGHT, elemHeight);
-          }
-        };
-
-        _proto.updateNavProperties = function updateNavProperties() {
-          var $navElement = this.navElement || $(Selector.NAV_STICKY).first();
-          this.navElement = $navElement;
-          this.navHeight = $navElement.outerHeight();
-          this.navIsAbsolute = $navElement.css('position') === 'absolute';
-          this.navIsSticky = $navElement.length > 0;
-        };
-
-        Sticky.jQueryInterface = function jQueryInterface() {
-          return this.each(function jqEachSticky() {
-            var $element = $(this);
-            var data = $element.data(DATA_KEY);
-
-            if (!data) {
-              data = new Sticky(this);
-              $element.data(DATA_KEY, data);
-            }
-          });
-        };
-
-        _createClass(Sticky, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION;
-          }
-        }]);
-
-        return Sticky;
-      }();
-    /**
-     * ------------------------------------------------------------------------
-     * Initialise by data attribute
-     * ------------------------------------------------------------------------
-     */
+  //         this.onWatcherChange($element);
+  //         this.ticking = false; // for debouncing resize event with RequestAnimationFrame
+  //       } // getters
 
 
-    $(window).on(Event.LOAD_DATA_API, function () {
-      var stickyElements = $.makeArray($(Selector.DATA_STICKY));
-      /* eslint-disable no-plusplus */
+  //       var _proto = Sticky.prototype;
 
-      for (var i = stickyElements.length; i--;) {
-        var $sticky = $(stickyElements[i]);
-        Sticky.jQueryInterface.call($sticky, $sticky.data());
-      }
-    });
-    /**
-     * ------------------------------------------------------------------------
-     * jQuery
-     * ------------------------------------------------------------------------
-     */
+  //       _proto.initWatcher = function initWatcher(element) {
+  //         var _this = this;
 
-    /* eslint-disable no-param-reassign */
+  //         var $element = $(element);
+  //         var notNavElement = !this.isNavElement;
+  //         var offset = this.stickBelowNav && this.navIsSticky && notNavElement ? {
+  //           top: this.navHeight
+  //         } : NO_OFFSET;
+  //         offset = this.stickBottom && notNavElement ? {
+  //           bottom: -$element.outerHeight
+  //         } : offset;
+  //         var watcher = scrollMonitor.create(element, offset); // ensure that we're always watching the place the element originally was
 
-    $.fn[NAME] = Sticky.jQueryInterface;
-    $.fn[NAME].Constructor = Sticky;
+  //         watcher.lock();
+  //         var untilWatcher = this.stickyUntil !== null ? scrollMonitor.create(this.stickyUntil, {
+  //           bottom: -(watcher.height + offset.top)
+  //         }) : null;
+  //         this.watcher = watcher;
+  //         this.untilWatcher = untilWatcher;
+  //         this.navHeight = this.navHeight; // For navs that start at top, stick them immediately to avoid a jump
 
-    $.fn[NAME].noConflict = function StickyNoConflict() {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return Sticky.jQueryInterface;
-    };
-    /* eslint-enable no-param-reassign */
+  //         if (this.isNavElement && watcher.top === 0 && !this.navIsAbsolute) {
+  //           $element.addClass(ClassName.FIXED_TOP);
+  //         }
+
+  //         watcher.stateChange(function () {
+  //           _this.onWatcherChange($element);
+  //         });
+
+  //         if (untilWatcher !== null) {
+  //           untilWatcher.exitViewport(function () {
+  //             // If the element is in a section, it will scroll up with the section
+  //             $element.addClass(ClassName.ABSOLUTE_BOTTOM);
+  //           });
+  //           untilWatcher.enterViewport(function () {
+  //             $element.removeClass(ClassName.ABSOLUTE_BOTTOM);
+  //           });
+  //         }
+  //       };
+
+  //       _proto.onWatcherChange = function onWatcherChange($element) {
+  //         // Add fixed when element leaves via top of viewport or if nav is sitting at top
+  //         $element.toggleClass(ClassName.FIXED_TOP, this.watcher.isAboveViewport || !this.navIsAbsolute && !this.stickBottom && this.isNavElement && this.watcher.top === 0); // Used to apply styles to the nav based on "scrolled" class
+  //         // independedly of position-fixed because that class is used for more practical reasons
+  //         // such as avoiding a jump on first scroll etc.
+
+  //         $element.toggleClass(ClassName.SCROLLED, this.watcher.isAboveViewport && this.isNavElement && !this.stickBottom); // Fix to bottom when element enters via bottom of viewport and has data-sticky="bottom"
+
+  //         $element.toggleClass(ClassName.FIXED_BOTTOM, (this.watcher.isFullyInViewport || this.watcher.isAboveViewport) && this.stickBottom);
+
+  //         if (!this.stickBottom) {
+  //           $element.css(Css.SPACE_TOP, this.watcher.isAboveViewport && this.navIsSticky && this.stickBelowNav ? this.navHeight : NO_OFFSET);
+  //         }
+  //       };
+
+  //       _proto.setResizeEvent = function setResizeEvent() {
+  //         var _this2 = this;
+
+  //         // Closing any alerts above the nav will mean we need to recalculate position.
+  //         $(Selector.ALERT).on(Event.ALERT_CLOSED, function () {
+  //           // An alert above the nav will cause odd sticky behaviour if
+  //           // the alert is dismissed and nav position is not recalculated,
+  //           // as scrollMonitor has locked the position of the watcher.
+  //           // Unlock and recalculate if the nav is in the viewport during alert close event.
+  //           if (_this2.watcher.isInViewport) {
+  //             _this2.watcher.unlock();
+
+  //             _this2.watcher.recalculateLocation();
+
+  //             _this2.watcher.lock();
+  //           }
+
+  //           _this2.onResize();
+  //         });
+  //         $(window).on(Event.WINDOW_RESIZE, function () {
+  //           _this2.onResize();
+  //         });
+  //       };
+
+  //       _proto.onResize = function onResize() {
+  //         var _this3 = this;
+
+  //         if (!this.ticking) {
+  //           window.requestAnimationFrame(function () {
+  //             _this3.updateCss();
+
+  //             _this3.ticking = false;
+  //           });
+  //           this.ticking = true;
+  //         }
+  //       };
+
+  //       _proto.updateCss = function updateCss() {
+  //         var $element = $(this.element); // Fix width by getting parent's width to avoid element spilling out when pos-fixed
+
+  //         $element.css(Css.WIDTH, $element.parent().width());
+  //         this.updateNavProperties();
+  //         var elemHeight = $element.outerHeight();
+  //         var notNavElement = !this.isNavElement; // Set a min-height to prevent "jumping" when sticking to top
+  //         // but not applied to the nav element itself unless it is overlay (absolute) nav
+
+  //         if (!this.navIsAbsolute && this.isNavElement || notNavElement) {
+  //           $element.parent().css(Css.HEIGHT, elemHeight);
+  //         }
+
+  //         if (this.navIsSticky && notNavElement) {
+  //           $element.css(Css.HEIGHT, elemHeight);
+  //         }
+  //       };
+
+  //       _proto.updateNavProperties = function updateNavProperties() {
+  //         var $navElement = this.navElement || $(Selector.NAV_STICKY).first();
+  //         this.navElement = $navElement;
+  //         this.navHeight = $navElement.outerHeight();
+  //         this.navIsAbsolute = $navElement.css('position') === 'absolute';
+  //         this.navIsSticky = $navElement.length > 0;
+  //       };
+
+  //       Sticky.jQueryInterface = function jQueryInterface() {
+  //         return this.each(function jqEachSticky() {
+  //           var $element = $(this);
+  //           var data = $element.data(DATA_KEY);
+
+  //           if (!data) {
+  //             data = new Sticky(this);
+  //             $element.data(DATA_KEY, data);
+  //           }
+  //         });
+  //       };
+
+  //       _createClass(Sticky, null, [{
+  //         key: "VERSION",
+  //         get: function get() {
+  //           return VERSION;
+  //         }
+  //       }]);
+
+  //       return Sticky;
+  //     }();
+  //   /**
+  //    * ------------------------------------------------------------------------
+  //    * Initialise by data attribute
+  //    * ------------------------------------------------------------------------
+  //    */
 
 
-    return Sticky;
-  }(jQuery$1);
+  //   $(window).on(Event.LOAD_DATA_API, function () {
+  //     var stickyElements = $.makeArray($(Selector.DATA_STICKY));
+  //     /* eslint-disable no-plusplus */
+
+  //     for (var i = stickyElements.length; i--;) {
+  //       var $sticky = $(stickyElements[i]);
+  //       Sticky.jQueryInterface.call($sticky, $sticky.data());
+  //     }
+  //   });
+  //   /**
+  //    * ------------------------------------------------------------------------
+  //    * jQuery
+  //    * ------------------------------------------------------------------------
+  //    */
+
+  //   /* eslint-disable no-param-reassign */
+
+  //   $.fn[NAME] = Sticky.jQueryInterface;
+  //   $.fn[NAME].Constructor = Sticky;
+
+  //   $.fn[NAME].noConflict = function StickyNoConflict() {
+  //     $.fn[NAME] = JQUERY_NO_CONFLICT;
+  //     return Sticky.jQueryInterface;
+  //   };
+  //   /* eslint-enable no-param-reassign */
+
+
+  //   return Sticky;
+  // }(jQuery$1);
 
   //
   jQuery$1(document).ready(function () {
@@ -2047,9 +1668,7 @@
 
   exports.mrDropdownGrid = mrDropdownGrid;
   exports.mrFlatpickr = mrFlatpickr;
-  exports.mrFormEmail = mrFormEmail;
   exports.mrOverlayNav = mrOverlayNav;
-  exports.mrSticky = mrSticky;
   exports.mrUtil = mrUtil;
 
   Object.defineProperty(exports, '__esModule', { value: true });

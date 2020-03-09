@@ -37,12 +37,14 @@ export class PhotoLoaderDirective implements OnInit {
 
           if (this.photoId) {
             let photo = await this.photoService.getPhoto(this.photoId)
-            if (photo.masterUrl) {
-              this.renderer.setAttribute(
-                this.element.nativeElement,
-                'src',
-                photo.masterUrl
-              );
+            if (photo) {
+              if (photo.masterUrl) {
+                this.renderer.setAttribute(
+                  this.element.nativeElement,
+                  'src',
+                  photo.masterUrl
+                );
+              }
             }
           }
           observer.disconnect();
