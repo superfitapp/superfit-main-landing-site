@@ -6,10 +6,8 @@ domain: superfit
 scripts:
     external:
         - aos
-        - flatpickr
         - jquery
         - jquery-countdown
-        - ion-rangeslider
         - isotope-layout
         - jarallax
         - prismjs
@@ -19,7 +17,6 @@ scripts:
     globals:
         aos: AOS
         countup.js: CountUp
-        flatpickr: flatpickr
         jarallax: jarallax
         jquery: jQuery
         isotope-layout: Isotope
