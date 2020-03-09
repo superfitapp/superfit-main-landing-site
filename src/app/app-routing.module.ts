@@ -27,8 +27,8 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
             path: "",
             component: RootLandingComponent,
             data: {
-              title: 'SuperFit - Workout Mobile App',
-              description: 'Curated Workout Plans for common fitness goals.',
+              title: 'Grow Your Personal Trainer Salary',
+              description: 'Teach your lifts, runs and sports drills over 1-on-1 video.',
               ogUrl: 'https://www.superfitapp.com'
             }
           },
@@ -48,8 +48,8 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
             path: "workout-spreadsheet",
             component: RemotelyComponent,
             data: {
-              title: 'Workout Spreadsheet',
-              description: 'Remote coaching tool for fitness professionals and personal trainers.',
+              title: 'Grow Your Personal Trainer Salary',
+              description: 'Teach your lifts, runs and sports drills over 1-on-1 video.',
               ogUrl: 'https://www.superfitapp.com/workout-spreadsheet'
             }
           },
@@ -57,8 +57,8 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
             path: "online-coaching",
             component: RemotelyComponent,
             data: {
-              title: 'SuperFit Remote',
-              description: 'Remote Coaching Software for personal trainers and fitness professionals.',
+              title: 'Grow Your Personal Trainer Salary',
+              description: 'Teach your lifts, runs and sports drills over 1-on-1 video.',
               ogUrl: 'https://www.superfitapp.com/online-coaching'
             }
           },
@@ -66,8 +66,8 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
             path: "remote",
             component: RemotelyComponent,
             data: {
-              title: 'SuperFit Remote',
-              description: 'Remote Coaching Software for personal trainers and fitness professionals.',
+              title: 'Grow Your Personal Trainer Salary',
+              description: 'Teach your lifts, runs and sports drills over 1-on-1 video.',
               ogUrl: 'https://www.superfitapp.com/online-coaching'
             }
           },
