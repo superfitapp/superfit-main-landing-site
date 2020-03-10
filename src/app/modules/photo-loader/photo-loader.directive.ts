@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Renderer2, Input } from '@angular/core';
-import { PhotoService } from '../../services/photo.service';
+import { PhotoService, ThumbnailSize } from '../../services/photo.service';
 
 @Directive({
   selector: '[sfPhoto]'
@@ -12,6 +12,7 @@ export class PhotoLoaderDirective implements OnInit {
   ) { }
 
   @Input('sfPhoto') photoId?: string;
+  @Input('sfSize') thumbnailSize?: number;
 
   ngOnInit() {
     if (this.element.nativeElement.tagName.toLowerCase() != 'img') {
@@ -34,10 +35,23 @@ export class PhotoLoaderDirective implements OnInit {
     return new IntersectionObserver((entries, observer) => {
       entries.forEach(async entry => {
         if (entry.isIntersecting) {
-
           if (this.photoId) {
             let photo = await this.photoService.getPhoto(this.photoId)
             if (photo) {
+
+              if (this.thumbnailSize && photo.filePath) {
+                let thumbnailUrl = await this.photoService.fetchThumbnailPromise(this.thumbnailSize, photo.filePath)
+                if (thumbnailUrl) {
+                  this.renderer.setAttribute(
+                    this.element.nativeElement,
+                    'src',
+                    thumbnailUrl
+                  );
+
+                  return
+                }
+              }
+
               if (photo.masterUrl) {
                 this.renderer.setAttribute(
                   this.element.nativeElement,

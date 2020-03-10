@@ -1,7 +1,7 @@
 <div *ngIf="trainingPlanTemplate$ | async as template; else loading">
   <section class="bg-dark text-light overlay min-vh-100 d-flex flex-column justify-content-end jarallax" data-jarallax
     data-speed="0.5">
-    <img [sfPhoto]="template.mainImagePhotoId" alt="Image" class="jarallax-img opacity-60">
+    <img [sfPhoto]="template.mainImagePhotoId" [sfSize]=256 alt="Image" class="jarallax-img opacity-60">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-10 col-xl-8">

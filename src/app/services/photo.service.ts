@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { tap, take, map } from "rxjs/operators"
+import { AngularFireStorage } from '@angular/fire/storage';
+
 import { Observable } from 'rxjs';
 import {
   IPhotoResponse_V1,
@@ -7,13 +9,20 @@ import {
 } from "superfitjs";
 import { ApiService } from './api.service';
 
+export const enum ThumbnailSize {
+  sixtyFour = 64,
+  twoFiftySix = 256,
+  fiveTwelve = 512
+}
+
 @Injectable({ providedIn: 'root' })
 export class PhotoService {
 
   private images = new Map<string, any>()
 
   constructor(
-    private readonly apiService: ApiService
+    private readonly apiService: ApiService,
+    private storage: AngularFireStorage
   ) {
 
   }
@@ -64,6 +73,75 @@ export class PhotoService {
         .pipe(map(videos => videos[0]))
         .toPromise()
     }
+  }
+
+  fetchThumbnailUrl(
+    size: ThumbnailSize,
+    filePath: String,
+    completion: ((string?) => void)
+  ) {
+    let filePathComponents = filePath.split("/")
+    let imageName = filePathComponents[filePathComponents.length - 1]
+
+    if (!imageName) {
+      completion(null)
+      return
+    }
+
+    let thumbnailUrl = filePathComponents.reduce((composedString, component) => {
+      if (component != imageName) {
+        return composedString + `/${component}`
+      } else {
+        // Last component of path, most
+        // likely the image file name.
+        return composedString + `/thumb@${size}_${component}`
+      }
+    })
+
+    this.fetchFirebaseImageUrl(thumbnailUrl, completion)
+  }
+
+  private fetchFirebaseImageUrl(
+    path: string,
+    completion: ((string?) => void)
+  ) {
+    let spaceRef = this.storage.storage.ref(path)
+    spaceRef.getDownloadURL()
+      .then(url => {
+        completion(url)
+      })
+      .catch(error => {
+        completion(null)
+      })
+  }
+
+  async fetchThumbnailPromise(
+    size: ThumbnailSize,
+    filePath: String): Promise<string> {
+    let filePathComponents = filePath.split("/")
+    let imageName = filePathComponents[filePathComponents.length - 1]
+
+    if (!imageName) {
+      throw Error("no image name")
+      return
+    }
+
+    let thumbnailUrl = filePathComponents.reduce((composedString, component) => {
+      if (component != imageName) {
+        return composedString + `/${component}`
+      } else {
+        // Last component of path, most
+        // likely the image file name.
+        return composedString + `/thumb@${size}_${component}`
+      }
+    })
+
+    return this.firebaseImageUrl(thumbnailUrl)
+  }
+
+  private async firebaseImageUrl(path: string): Promise<string> {
+    let spaceRef = this.storage.storage.ref(path)
+    return spaceRef.getDownloadURL()
   }
 }
 
