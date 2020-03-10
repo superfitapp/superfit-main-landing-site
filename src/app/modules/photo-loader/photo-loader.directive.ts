@@ -40,15 +40,19 @@ export class PhotoLoaderDirective implements OnInit {
             if (photo) {
 
               if (this.thumbnailSize && photo.filePath) {
-                let thumbnailUrl = await this.photoService.fetchThumbnailPromise(this.thumbnailSize, photo.filePath)
-                if (thumbnailUrl) {
-                  this.renderer.setAttribute(
-                    this.element.nativeElement,
-                    'src',
-                    thumbnailUrl
-                  );
+                try {
+                  let thumbnailUrl = await this.photoService.fetchThumbnailPromise(this.thumbnailSize, photo.filePath)
+                  if (thumbnailUrl) {
+                    this.renderer.setAttribute(
+                      this.element.nativeElement,
+                      'src',
+                      thumbnailUrl
+                    );
 
-                  return
+                    return
+                  }
+                } catch {
+                  //
                 }
               }
 

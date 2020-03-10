@@ -30,12 +30,12 @@
     "branch-sdk": "^2.52.3",
     "compression": "^1.7.4",
     "core-js": "^2.6.11",
+    "firebase": "^7.8.0",
     "rxjs": "~6.5.4",
     "superfitjs": "github:superfitapp/superfit-shared-js#master",
     "tslib": "^1.10.0",
     "uuid": "^3.3.3",
-    "zone.js": "~0.9.1",
-    "firebase": "^7.8.0"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.900.1",

@@ -1,7 +1,7 @@
 <div *ngIf="trainingPlanTemplate$ | async as template; else loading">
   <section class="bg-dark text-light overlay min-vh-100 d-flex flex-column justify-content-end jarallax" data-jarallax
     data-speed="0.5">
-    <img [sfPhoto]="template.mainImagePhotoId" [sfSize]=256 alt="Image" class="jarallax-img opacity-60">
+    <img [sfPhoto]="template.mainImagePhotoId" alt="Image" class="jarallax-img opacity-60">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-10 col-xl-8">
@@ -10,7 +10,7 @@
           <h1>{{template.title}}</h1>
           <div class="d-flex align-items-center">
             <a href="#">
-              <img [sfPhoto]="template.owner.profilePhotoId" alt="Avatar" class="avatar mr-2">
+              <img [sfPhoto]="template.owner.profilePhotoId" [sfSize]=512 alt="Avatar" class="avatar mr-2">
             </a>
             <div>
               <div>by <a href="#">{{template.owner.name}}</a>
@@ -105,7 +105,8 @@
                   <li *ngFor="let phase of template.phases" data-aos="fade-left">
                     <div class="process-circle bg-primary"></div>
                     <div>
-                      <img [sfPhoto]="phase.mainImagePhotoId" alt="Phase Image" class="avatar avatar-lg mb-2">
+                      <img [sfPhoto]="phase.mainImagePhotoId" [sfSize]=512 alt="Phase Image"
+                        class="avatar avatar-lg mb-2">
                       <h5 class="mb-0">{{phase.title}}</h5>
                       <span class="text-small text-muted">{{phase.numberOfWeeks}} Weeks</span>
                     </div>
