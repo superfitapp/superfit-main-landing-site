@@ -157,7 +157,7 @@
         </div>
 
         <div class="col-md-6" data-aos="fade">
-          <a [href]="'/plans/'+ plan.id">
+          <a [routerLink]="['/plans/'+ plan.id]">
             <h3 class="h1" style="text-decoration: underline;">{{plan.title}}</h3>
           </a>
           <p class="lead">{{plan.shortDescription}}</p>

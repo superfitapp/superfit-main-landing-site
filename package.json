@@ -15,8 +15,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^9.0.0",
-    "@angular/cdk": "^9.0.0",
     "@angular/common": "^9.0.0",
     "@angular/compiler": "^9.0.0",
     "@angular/core": "^9.0.0",
@@ -26,7 +24,6 @@
     "@angular/platform-server": "^9.0.0",
     "@angular/router": "^9.0.0",
     "angulartics2": "^8.3.0",
-    "auth0-js": "^9.12.1",
     "branch-sdk": "^2.52.3",
     "compression": "^1.7.4",
     "core-js": "^2.6.11",

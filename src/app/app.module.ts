@@ -6,7 +6,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { Angulartics2Module } from 'angulartics2';
 import { ApiService } from './services/api.service';
-import { AuthService } from './services/auth.service';
 import { CurrentUserService } from './services/current-user.service';
 import { SEOService } from './services/seo.service';
 import { RemotelyComponent } from './remote/remotely.component'
@@ -51,7 +50,6 @@ import { PhotoLoaderModule } from './modules/photo-loader/photo-loader.module';
   ],
   providers: [
     ApiService,
-    AuthService,
     CurrentUserService,
     SEOService
   ],
