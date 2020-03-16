@@ -1,19 +1,19 @@
 <div *ngIf="navConfig.navType == 'HomePage'" class="navbar-container">
-  <nav class="navbar navbar-expand-md navbar-light border-bottom-0 bg-white" data-sticky="top">
+  <nav class="navbar navbar-expand-md navbar-light border-bottom-0 bg-white position-fixed scrolled" data-sticky="top">
     <div class="container">
-
       <a class="navbar-brand fade-page" href="https://superfitapp.com">
-        <img style="object-fit: cover" height="20" src="./assets/img/superfit-logo.png" alt="SuperFit">
+        <img style="object-fit: cover" height="24" src="./assets/img/superfit-logo.png" alt="SuperFit">
       </a>
     </div>
   </nav>
 </div>
 
 <div *ngIf="navConfig.navType == 'TemplateDetail'" class="navbar-container">
-  <nav class="navbar navbar-expand border-bottom-0" style="background-color: #F2EFE7;" data-sticky="top">
+  <nav class="navbar navbar-expand border-bottom-0 position-fixed scrolled" style="background-color: #F2EFE7;"
+    data-sticky="top">
     <div class="container">
       <a class="navbar-brand fade-page" href="/">
-        <img style="object-fit: cover" height="20" src="./assets/img/superfit-logo.png" alt="SuperFit">
+        <img style="object-fit: cover" height="24" src="./assets/img/superfit-logo.png" alt="SuperFit">
       </a>
 
       <div class="navbar-collapse justify-content-end">

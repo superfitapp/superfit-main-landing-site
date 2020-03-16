@@ -37,6 +37,7 @@ export class TrainingPlanTemplateComponent implements OnInit {
       this.router.navigate(["/404"]);
       return
     }
+
     this.uiState.showNavigation = true
     this.uiState.navConfig = {
       navType: NavigationType.TemplateDetail,
