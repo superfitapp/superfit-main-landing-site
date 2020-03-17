@@ -11,6 +11,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component'
 import { NotFoundComponent } from './not-found/not-found.component'
 import { TrainingPlanTemplateComponent } from './remote/training-plan-template/training-plan-template.component';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
@@ -87,6 +88,10 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
             ]
           },
           {
+            path: "plans/:templateId/:planOfferId",
+            component: TrainingPlanTemplateComponent,
+          },
+          {
             path: "plans/:templateId",
             component: TrainingPlanTemplateComponent,
           },
@@ -100,8 +105,11 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
     })
   ]
   ,
-  exports: [RouterModule],
-  declarations: [
+  exports: [
+    RouterModule
+  ],
+  providers: [
+
   ]
 })
 export class AppRoutingModule { }

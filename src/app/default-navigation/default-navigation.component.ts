@@ -13,7 +13,7 @@ export class DefaultNavigationComponent implements OnInit {
 
   constructor(uiState: UIStateService) {
     this.navConfig = uiState.navConfig
-    this.webAppLink = environment.app_base_uri
+    this.webAppLink = uiState.navConfig.ctaUrl
   }
 
   ngOnInit() {

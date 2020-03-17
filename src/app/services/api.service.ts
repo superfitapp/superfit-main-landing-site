@@ -12,7 +12,9 @@ import {
   ISignInDTO_V1,
   IAthletePublicInfo,
   IVideoResponse_V1,
-  IPhotoResponse_V1
+  IPhotoResponse_V1,
+  IPlanProUsernamePublicInfo,
+  IPlanPublicInfo
 } from "superfitjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
@@ -84,20 +86,29 @@ export class ApiService {
     return this.http.get<IAthletePublicInfo>(url)
   }
 
-  fetchTrainingPlanTemplate(
-    id: string
-  ): Observable<Journey_Template_Response_V1> {
-    const url = `${this.journeyTemplatesBaseUrl(1)}/${id}`;
-    return this.fetchOne(url)
+  fetchPlanAndOwnerInfo(
+    planId: string,
+    planOfferId?: string,
+  ): Observable<IPlanProUsernamePublicInfo> {
+    const url = `${environment.superfit_workouts_base_uri}/v1/show/plans/${planId}`;
+    const params = {}
+
+    if (planOfferId) {
+      params['planOfferId'] = planOfferId
+    }
+
+    return this.http.get<IPlanProUsernamePublicInfo>(url, {
+      params: params
+    })
   }
 
-  fetchPublicProPlans(
+  fetchPublicPlansInfo(
     username: string,
     offset: number,
     take: number = 5
-  ): Observable<Journey_Template_Response_V1[]> {
+  ): Observable<IPlanPublicInfo[]> {
     const url = `${environment.superfit_workouts_base_uri}/v1/show/professionals/${username}/plans`;
-    return this.http.get<Journey_Template_Response_V1[]>(url, {
+    return this.http.get<IPlanPublicInfo[]>(url, {
       params: {
         offset: offset.toString(),
         take: take.toString()

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Renderer2, Input } from '@angular/core';
-import { PhotoService, ThumbnailSize } from '../../services/photo.service';
+import { SFPhotoFetcherService, ThumbnailSize } from '../../services/photo-fetcher.service';
 
 @Directive({
   selector: '[sfPhoto]'
@@ -7,7 +7,7 @@ import { PhotoService, ThumbnailSize } from '../../services/photo.service';
 export class PhotoLoaderDirective implements OnInit {
   constructor(
     private element: ElementRef<HTMLImageElement>,
-    private photoService: PhotoService,
+    private photoService: SFPhotoFetcherService,
     private renderer: Renderer2
   ) { }
 

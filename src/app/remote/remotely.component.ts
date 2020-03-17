@@ -12,7 +12,7 @@ declare var Beacon: any;
 export class RemotelyComponent implements OnInit {
   @Input() webAppLink: string
   constructor(private uiState: UIStateService) {
-    this.webAppLink = `${environment.base_uri}/remote`
+    this.webAppLink = `${environment.base_uri}`
     this.uiState.navConfig = {
       navType: NavigationType.HomePage,
       ctaText: "Learn More",

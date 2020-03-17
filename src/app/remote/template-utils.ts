@@ -1,8 +1,8 @@
-import { Journey_Template_Response_V1, Level } from 'superfitjs'
+import { IPlanPublicInfo, Level } from 'superfitjs'
 
 export default class TemplateUtils {
-  static experienceLevelText(journey: Journey_Template_Response_V1): string {
-    switch (journey.level.toLowerCase()) {
+  static experienceLevelText(planInfo: IPlanPublicInfo): string {
+    switch (planInfo.level.toLowerCase()) {
       case Level.Beginner:
         return "Perfect for all fitness levels"
       case Level.Intermediate:
@@ -16,7 +16,7 @@ export default class TemplateUtils {
     }
   }
 
-  static trainingPlanTemplateTotalWeeks(template: Journey_Template_Response_V1): number {
-    return template.phases.map(x => x.numberOfWeeks).reduce((a, b) => a + b)
+  static trainingPlanTemplateTotalWeeks(planInfo: IPlanPublicInfo): number {
+    return planInfo.phases.map(x => x.numberOfWeeks).reduce((a, b) => a + b)
   }
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from '../services/api.service';
-import { Phase_Response_V1, Journey_Template_Response_V1, Level, IAthletePublicInfo, IProPublicInfo } from 'superfitjs';
+import { Phase_Response_V1, Journey_Template_Response_V1, Level, IAthletePublicInfo, IProPublicInfo, IPlanPublicInfo } from 'superfitjs';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { UIStateService } from '../services/ui-state.service';
-import { PhotoService } from '../services/photo.service';
+import { SFPhotoFetcherService } from '../services/photo-fetcher.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,13 +17,13 @@ export class UserProfileComponent implements OnInit {
   private username?: string
   private userPublicProfile$: Observable<IAthletePublicInfo>
   professionalProfile$: Observable<IProPublicInfo>
-  plans: Journey_Template_Response_V1[] = []
+  plans: IPlanPublicInfo[] = []
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private readonly apiService: ApiService,
-    private readonly photoService: PhotoService,
+    private readonly photoService: SFPhotoFetcherService,
     private readonly uiState: UIStateService
   ) {
     this.uiState.showNavigation = false
@@ -66,7 +66,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchPlans() {
-    this.apiService.fetchPublicProPlans(this.username, this.plans.length, 5)
+    this.apiService.fetchPublicPlansInfo(this.username, this.plans.length, 5)
       .subscribe(plans => {
         this.plans = this.plans.concat(plans)
       }, error => {
