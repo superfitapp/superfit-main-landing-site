@@ -1,7 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as branch from 'branch-sdk'
-import { Journey_Template_Response_V1, PlanOfferResponse_V1 } from 'superfitjs';
+import { PlanOfferResponse_V1, IPlanPublicInfo } from 'superfitjs';
 import { SFPhotoFetcherService, ThumbnailSize } from './photo-fetcher.service';
+import { environment } from '../../environments/environment';
 
 const enum Location {
   learnTab = "learnTab",
@@ -18,33 +19,34 @@ const enum DeepLinkKey {
   PlanId = "planId"
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DeepLinkService {
   constructor(
-    private photoFetcher: SFPhotoFetcherService,
-    @Inject('branch_key') private branch_key: string
+    private photoFetcher: SFPhotoFetcherService
   ) {
 
     var options = { no_journeys: true };
-    branch.init(branch_key, options, function (err, data) {
+    branch.init(environment.branch_key, options, function (err, data) {
       //
     });
   }
 
-  public createPlanWithOfferPublicLink(plan: Journey_Template_Response_V1, offer: PlanOfferResponse_V1, completion: ((link: string) => void), error?: ((err: any) => void)) {
+  // use any IPlanPublicInfo of journey template.
+
+  public createPlanWithOfferPublicLink(plan: IPlanPublicInfo, offer: PlanOfferResponse_V1, completion: ((link: string) => void), error?: ((err: any) => void)) {
     this.createJourneyTemplateLink(plan, offer, plan.title, Location.journeyTemplateDetailPreview, completion)
   }
 
-  public createTrainingPlanTestLink(journeyTemplate: Journey_Template_Response_V1, completion: ((link: string) => void), error?: ((err: any) => void)) {
-    this.createJourneyTemplateLink(journeyTemplate, null, `[Test] - ${journeyTemplate.title}`, Location.journeyTemplateDetailPreview, completion)
+  public createTrainingPlanTestLink(plan: IPlanPublicInfo, completion: ((link: string) => void), error?: ((err: any) => void)) {
+    this.createJourneyTemplateLink(plan, null, `[Test] - ${plan.title}`, Location.journeyTemplateDetailPreview, completion)
   }
 
-  public createTrainingPlanPublicLink(journeyTemplate: Journey_Template_Response_V1, completion: ((link: string) => void), error?: ((err: any) => void)) {
-    this.createJourneyTemplateLink(journeyTemplate, null, journeyTemplate.title, Location.journeyTemplateDetail, completion)
+  public createTrainingPlanPublicLink(plan: IPlanPublicInfo, completion: ((link: string) => void), error?: ((err: any) => void)) {
+    this.createJourneyTemplateLink(plan, null, plan.title, Location.journeyTemplateDetail, completion)
   }
 
   private createJourneyTemplateLink(
-    plan: Journey_Template_Response_V1,
+    plan: IPlanPublicInfo,
     planOffer: PlanOfferResponse_V1 = null,
     title: string,
     location: Location,
@@ -86,8 +88,6 @@ export class DeepLinkService {
 
             if (thumbnailUrl) {
               linkData.data['$og_image_url'] = thumbnailUrl
-              console.log(thumbnailUrl);
-
             } else {
               // default to master url
               linkData.data['$og_image_url'] = photo.masterUrl

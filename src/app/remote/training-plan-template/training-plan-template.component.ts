@@ -10,6 +10,7 @@ import { SEOService } from '../../services/seo.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
 import { SFPhotoFetcherService } from 'src/app/services/photo-fetcher.service';
+import { DeepLinkService } from '../../services/deep-link.service';
 
 interface PlanOfferViewModel {
   planOnlyPrice: string
@@ -33,6 +34,7 @@ export class TrainingPlanTemplateComponent implements OnInit {
   numberOfWeeks?: number
   experienceLevel?: string
   planOfferViewModel?: PlanOfferViewModel
+  defaultPlanLink?: string
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +42,8 @@ export class TrainingPlanTemplateComponent implements OnInit {
     private uiState: UIStateService,
     private apiService: ApiService,
     private seoService: SEOService,
-    private photoFetcher: SFPhotoFetcherService
+    private photoFetcher: SFPhotoFetcherService,
+    private deepLinkService: DeepLinkService
   ) {
 
     let templateId = this.route.snapshot.paramMap.get("templateId");
@@ -50,9 +53,6 @@ export class TrainingPlanTemplateComponent implements OnInit {
       this.router.navigate(["/404"]);
       return
     }
-
-    console.log(planOfferId);
-
 
     this.uiState.showNavigation = true
     this.uiState.navConfig = {
@@ -66,10 +66,16 @@ export class TrainingPlanTemplateComponent implements OnInit {
       .fetchPlanAndOwnerInfo(templateId, planOfferId)
       .pipe(
         tap(async info => {
+
+          if (!info.planInfo) {
+            this.router.navigate(["/404"]);
+          }
+
           this.numberOfWeeks = TemplateUtils.trainingPlanTemplateTotalWeeks(info.planInfo)
           this.experienceLevel = TemplateUtils.experienceLevelText(info.planInfo)
 
           this.seoService.updateTitle(info.planInfo.title);
+          this.seoService.updateDescription(info.planInfo.shortDescription)
           this.seoService.updateOgUrl()
 
           if (info.planInfo.mainImagePhotoId) {
@@ -79,27 +85,54 @@ export class TrainingPlanTemplateComponent implements OnInit {
             }
           }
 
+          const planOffer = info.planInfo.planOffer
+
+          if (!planOffer) {
+            this.planOfferViewModel = null
+            this.deepLinkService.createTrainingPlanPublicLink(info.planInfo, defaultLink => {
+              this.defaultPlanLink = defaultLink
+            })
+            return
+          }
 
           var planOnlyPrice = null
           var planCoachingPrice = null
 
-          if (info.planInfo.planOffer.trainingPlanPrice !== null) {
-            planOnlyPrice = info.planInfo.planOffer.trainingPlanPrice > 0 ? `${info.planInfo.planOffer.trainingPlanPrice / 100}` : "Free"
+          if (planOffer.trainingPlanPrice !== null) {
+            planOnlyPrice = planOffer.trainingPlanPrice > 0 ? `${planOffer.trainingPlanPrice / 100}` : "Free"
           }
 
-          if (info.planInfo.planOffer.remoteCoachingPrice !== null) {
-            planCoachingPrice = info.planInfo.planOffer.remoteCoachingPrice > 0 ? `${info.planInfo.planOffer.remoteCoachingPrice / 100}` : "Free"
+          if (planOffer.remoteCoachingPrice !== null) {
+            planCoachingPrice = planOffer.remoteCoachingPrice > 0 ? `${planOffer.remoteCoachingPrice / 100}` : "Free"
           }
 
           this.planOfferViewModel = {
             planOnlyPrice: planOnlyPrice,
             planCoachingPrice: planCoachingPrice,
-            planOnlyLink: "",
-            planCoachingLink: ""
           }
 
-          //Updating Description tag dynamically with title
-          this.seoService.updateDescription(info.planInfo.shortDescription)
+
+          this.deepLinkService.createPlanWithOfferPublicLink(info.planInfo, planOffer, link => {
+
+
+            // Check if Plan Only costs money
+            // Else, use same branch link and Plan + Coaching
+
+            let planOnlyLink: string
+
+            if (planOffer.trainingPlanPrice !== null && planOffer.trainingPlanPrice > 0) {
+              planOnlyLink = `${environment.app_base_uri}/`
+            }
+
+
+            if (link) {
+              this.planOfferViewModel = {
+                ...this.planOfferViewModel,
+                planOnlyLink: planOnlyLink,
+                planCoachingLink: link
+              }
+            }
+          })
         }),
         catchError(error => {
           this.router.navigate(["/404"]);

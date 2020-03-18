@@ -192,10 +192,9 @@
             </div>
           </div>
         </div>
-        <a *ngIf="!planOfferViewModel" href="https://itunes.apple.com/us/app/superfit-sports-workouts/id1225772126"
-          class="btn btn-success btn-lg mt-3" angulartics2On="click" angularticsAction="DownloadClickTemplateDetail"
-          angularticsLabel="downloadButton" angularticsValue="downloadForiOS"
-          [angularticsProperties]="{'location': 'Template Detail Bottom'}">
+        <a *ngIf="defaultPlanLink" [href]="defaultPlanLink" class="btn btn-success btn-lg mt-3" angulartics2On="click"
+          angularticsAction="DownloadClickTemplateDetail" angularticsLabel="downloadButton"
+          angularticsValue="downloadForiOS" [angularticsProperties]="{'location': 'Template Detail Bottom'}">
           Start {{info.planInfo.title}} on iOS
         </a>
       </div>
