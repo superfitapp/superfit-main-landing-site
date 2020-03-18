@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { UIStateService, NavigationType, NavigationTab } from '../services/ui-state.service';
+import { UIStateService, NavigationType } from '../services/ui-state.service';
 declare var Beacon: any;
 
 
@@ -16,8 +16,7 @@ export class RemotelyComponent implements OnInit {
     this.uiState.navConfig = {
       navType: NavigationType.HomePage,
       ctaText: "Learn More",
-      ctaUrl: environment.app_base_uri,
-      activeTab: NavigationTab.Remote
+      ctaUrl: environment.app_base_uri
     }
   }
 

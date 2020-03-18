@@ -8,14 +8,12 @@ import { UIStateService } from '../services/ui-state.service';
 })
 export class RootLayoutComponent implements OnInit {
 
-  @Input() showNavigation: boolean
-
   constructor(
-    readonly uiState: UIStateService
+    public readonly uiState: UIStateService
   ) { }
 
   ngOnInit() {
-    this.showNavigation = this.uiState.showNavigation
+
   }
 
 }

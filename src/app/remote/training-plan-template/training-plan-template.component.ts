@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UIStateService, NavigationType, NavigationTab } from '../../services/ui-state.service';
+import { UIStateService, NavigationType } from '../../services/ui-state.service';
 import { Observable, throwError } from 'rxjs';
-import { IPlanProUsernamePublicInfo, PlanOfferResponse_V1, IPlanPublicInfo } from 'superfitjs';
+import { IPlanProUsernamePublicInfo } from 'superfitjs';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
@@ -35,6 +35,7 @@ export class TrainingPlanTemplateComponent implements OnInit {
   experienceLevel?: string
   planOfferViewModel?: PlanOfferViewModel
   defaultPlanLink?: string
+  planOnlyCta = "Start Plan Now"
 
   constructor(
     private route: ActivatedRoute,
@@ -54,14 +55,6 @@ export class TrainingPlanTemplateComponent implements OnInit {
       return
     }
 
-    this.uiState.showNavigation = true
-    this.uiState.navConfig = {
-      navType: NavigationType.TemplateDetail,
-      ctaText: "Start Plan",
-      ctaUrl: "https://itunes.apple.com/us/app/superfit-sports-workouts/id1225772126",
-      activeTab: NavigationTab.Remote
-    }
-
     this.planProInfo$ = this.apiService
       .fetchPlanAndOwnerInfo(templateId, planOfferId)
       .pipe(
@@ -73,7 +66,6 @@ export class TrainingPlanTemplateComponent implements OnInit {
 
           this.numberOfWeeks = TemplateUtils.trainingPlanTemplateTotalWeeks(info.planInfo)
           this.experienceLevel = TemplateUtils.experienceLevelText(info.planInfo)
-
           this.seoService.updateTitle(info.planInfo.title);
           this.seoService.updateDescription(info.planInfo.shortDescription)
           this.seoService.updateOgUrl()
@@ -91,7 +83,15 @@ export class TrainingPlanTemplateComponent implements OnInit {
             this.planOfferViewModel = null
             this.deepLinkService.createTrainingPlanPublicLink(info.planInfo, defaultLink => {
               this.defaultPlanLink = defaultLink
+
+              this.uiState.navConfig = {
+                ctaText: "Start Free Plan",
+                ctaUrl: defaultLink,
+                navType: NavigationType.TemplateDetail
+              }
             })
+
+            this.planOnlyCta = this.uiState.navConfig.ctaText
             return
           }
 
@@ -106,31 +106,38 @@ export class TrainingPlanTemplateComponent implements OnInit {
             planCoachingPrice = planOffer.remoteCoachingPrice > 0 ? `${planOffer.remoteCoachingPrice / 100}` : "Free"
           }
 
-          this.planOfferViewModel = {
-            planOnlyPrice: planOnlyPrice,
-            planCoachingPrice: planCoachingPrice,
-          }
-
-
-          this.deepLinkService.createPlanWithOfferPublicLink(info.planInfo, planOffer, link => {
-
+          this.deepLinkService.createPlanWithOfferPublicLink(info.planInfo, planOffer, appLink => {
 
             // Check if Plan Only costs money
             // Else, use same branch link and Plan + Coaching
 
             let planOnlyLink: string
 
+            // Plan only costs money
             if (planOffer.trainingPlanPrice !== null && planOffer.trainingPlanPrice > 0) {
-              planOnlyLink = `${environment.app_base_uri}/`
+              planOnlyLink = `${environment.app_base_uri}/checkout/purchase-plan/${info.planInfo.id}/${planOffer.id}`
+              this.uiState.navConfig = {
+                ctaText: "Purchase Plan",
+                ctaUrl: planOnlyLink,
+                navType: NavigationType.TemplateDetail
+              }
+
+            } else {
+              planOnlyLink = appLink
+              this.uiState.navConfig = {
+                ctaText: "Start Plan",
+                ctaUrl: appLink,
+                navType: NavigationType.TemplateDetail
+              }
             }
 
+            this.planOnlyCta = this.uiState.navConfig.ctaText
 
-            if (link) {
-              this.planOfferViewModel = {
-                ...this.planOfferViewModel,
-                planOnlyLink: planOnlyLink,
-                planCoachingLink: link
-              }
+            this.planOfferViewModel = {
+              planOnlyPrice: planOnlyPrice,
+              planCoachingPrice: planCoachingPrice,
+              planOnlyLink: planOnlyLink,
+              planCoachingLink: appLink
             }
           })
         }),

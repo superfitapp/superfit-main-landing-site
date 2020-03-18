@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UIStateService, NavigationConfig } from '../services/ui-state.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-default-navigation',
@@ -8,14 +9,14 @@ import { UIStateService, NavigationConfig } from '../services/ui-state.service';
   styleUrls: ['./default-navigation.component.css']
 })
 export class DefaultNavigationComponent implements OnInit {
-  @Input() navConfig: NavigationConfig
-  @Input() webAppLink: string
 
-  constructor(uiState: UIStateService) {
-    this.navConfig = uiState.navConfig
-    this.webAppLink = uiState.navConfig.ctaUrl
+  constructor(
+    private route: ActivatedRoute,
+    public uiState: UIStateService
+  ) {
   }
 
   ngOnInit() {
+
   }
 }

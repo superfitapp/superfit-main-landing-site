@@ -1,4 +1,4 @@
-<div *ngIf="navConfig.navType == 'HomePage'" class="navbar-container">
+<div *ngIf="uiState?.navConfig?.navType == 'HomePage'" class="navbar-container">
   <nav class="navbar navbar-expand-md navbar-light border-bottom-0 bg-white position-fixed scrolled" data-sticky="top">
     <div class="container">
       <a class="navbar-brand fade-page" href="https://superfitapp.com">
@@ -8,18 +8,19 @@
   </nav>
 </div>
 
-<div *ngIf="navConfig.navType == 'TemplateDetail'" class="navbar-container">
+<div *ngIf="uiState?.navConfig?.navType == 'TemplateDetail'" class="navbar-container">
   <nav class="navbar bg-white navbar-expand border-bottom-0 position-fixed scrolled" data-sticky="top">
     <div class="container">
       <a class="navbar-brand fade-page" href="/">
         <img style="object-fit: cover" height="24" src="./assets/img/superfit-logo.png" alt="SuperFit">
       </a>
 
-      <div class="navbar-collapse justify-content-end">
+      <div *ngIf="uiState?.navConfig.ctaText" class="navbar-collapse justify-content-end">
         <div class="py-1 py-lg-0">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a [href]="webAppLink" class="btn btn-outline-primary-3 text-white">Share</a>
+              <a [href]="uiState.navConfig.ctaUrl" target="_blank"
+                class="btn btn-primary-3 text-white">{{uiState.navConfig.ctaText}}</a>
             </li>
           </ul>
         </div>

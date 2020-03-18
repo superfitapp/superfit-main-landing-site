@@ -23,10 +23,11 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private readonly apiService: ApiService,
-    private readonly photoService: SFPhotoFetcherService,
     private readonly uiState: UIStateService
   ) {
-    this.uiState.showNavigation = false
+
+    this.uiState.navConfig = null
+
     this.username = this.route.snapshot.paramMap.get("username");
 
     if (!this.username) {
