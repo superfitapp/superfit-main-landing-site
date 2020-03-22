@@ -1,4 +1,4 @@
-<div *ngIf="planProInfo$ | async as info; else loading">
+<div *ngIf="planProInfo | async as info; else loading">
   <section class="bg-dark text-light overlay min-vh-100 d-flex flex-column justify-content-end jarallax" data-jarallax
     data-speed="0.5">
     <img [sfPhoto]="info.planInfo.mainImagePhotoId" alt="Image" class="jarallax-img opacity-60">
@@ -10,12 +10,12 @@
           <h1>{{info.planInfo.title}}</h1>
           <div class="d-flex align-items-center">
             <a [href]="info.username">
-              <img [sfPhoto]="info.proInfo.profilePhotoId" [sfSize]=512 alt="Avatar" class="avatar mr-2">
+              <img [sfPhoto]="info.planInfo.owner?.profilePhotoId" [sfSize]=512 alt="Avatar" class="avatar mr-2">
             </a>
             <div>
-              <div>by <a [href]="info.username"> {{info.proInfo.name}}</a>
+              <div>by <a [href]="info.username"> {{info.planInfo.owner.name}}</a>
               </div>
-              <div class="text-small text-muted">{{info.proInfo.title}}</div>
+              <div class="text-small text-muted">{{info.planInfo.owner.title}}</div>
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@
             <div class="mx-1 text-center text-sm-left mb-3 mb-sm-0">
               <span class="h2 d-block">Plan Only</span>
               <p class="lead pr-xl-2">
-                Self-guided training with workouts and instructions by {{info.proInfo.name}}.
+                Self-guided training with workouts and instructions by {{info.planInfo.owner.name}}.
               </p>
               <a [href]="planOfferViewModel.planOnlyLink" target="_blank" class="btn btn-lg mt-2 btn-white"
                 style="width: 100%;">{{planOnlyCta}}</a>
@@ -178,7 +178,7 @@
             <div class="mx-1 text-center text-sm-left mb-3 mb-sm-0">
               <span class="h2 d-block">Plan + Coaching</span>
               <p class="lead pr-xl-2">
-                Private Remote Coaching. Train directly with {{info.proInfo.name}} over chat and video.
+                Private Remote Coaching. Train directly with {{info.planInfo.owner.name}} over chat and video.
               </p>
               <a [href]="planOfferViewModel.planCoachingLink" target="_blank" class="btn btn-lg mt-2 btn-white"
                 style="width: 100%;">Open in App</a>
@@ -198,7 +198,7 @@
               that enables
               communicating
               and
-              training with {{info.proInfo.name}}. The service spans the duration of this plan
+              training with {{info.planInfo.owner.name}}. The service spans the duration of this plan
               ({{numberOfWeeks}} weeks).</p>
           </div>
         </div>

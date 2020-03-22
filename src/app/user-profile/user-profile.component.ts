@@ -67,7 +67,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchPlans() {
-    this.apiService.fetchPublicPlansInfo(this.username, this.plans.length, 5)
+    this.apiService.fetchPlansInfo(this.username, this.plans.length, 5)
       .subscribe(plans => {
         this.plans = this.plans.concat(plans)
       }, error => {

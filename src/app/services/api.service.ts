@@ -13,7 +13,7 @@ import {
   IAthletePublicInfo,
   IVideoResponse_V1,
   IPhotoResponse_V1,
-  IPlanProUsernamePublicInfo,
+  IPlanAndUsernameInfo,
   IPlanPublicInfo
 } from "superfitjs";
 import { HttpClient } from "@angular/common/http";
@@ -86,10 +86,10 @@ export class ApiService {
     return this.http.get<IAthletePublicInfo>(url)
   }
 
-  fetchPlanAndOwnerInfo(
+  fetchPlanInfo(
     planId: string,
     planOfferId?: string,
-  ): Observable<IPlanProUsernamePublicInfo> {
+  ): Observable<IPlanAndUsernameInfo> {
     const url = `${environment.superfit_workouts_base_uri}/v1/show/plans/${planId}`;
     const params = {}
 
@@ -97,12 +97,12 @@ export class ApiService {
       params['planOfferId'] = planOfferId
     }
 
-    return this.http.get<IPlanProUsernamePublicInfo>(url, {
+    return this.http.get<IPlanAndUsernameInfo>(url, {
       params: params
     })
   }
 
-  fetchPublicPlansInfo(
+  fetchPlansInfo(
     username: string,
     offset: number,
     take: number = 5

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UIStateService, NavigationType } from '../../services/ui-state.service';
 import { Observable, throwError } from 'rxjs';
-import { IPlanProUsernamePublicInfo } from 'superfitjs';
+import { IPlanAndUsernameInfo } from 'superfitjs';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
@@ -30,7 +30,7 @@ interface PlanOfferViewModel {
 })
 export class TrainingPlanTemplateComponent implements OnInit {
 
-  planProInfo$: Observable<IPlanProUsernamePublicInfo>
+  planProInfo: Observable<IPlanAndUsernameInfo>
   numberOfWeeks?: number
   experienceLevel?: string
   planOfferViewModel?: PlanOfferViewModel
@@ -55,8 +55,8 @@ export class TrainingPlanTemplateComponent implements OnInit {
       return
     }
 
-    this.planProInfo$ = this.apiService
-      .fetchPlanAndOwnerInfo(templateId, planOfferId)
+    this.planProInfo = this.apiService
+      .fetchPlanInfo(templateId, planOfferId)
       .pipe(
         tap(async info => {
 
