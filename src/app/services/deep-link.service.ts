@@ -34,7 +34,7 @@ export class DeepLinkService {
   // use any IPlanPublicInfo of journey template.
 
   public createPlanWithOfferPublicLink(plan: IPlanPublicInfo, offer: PlanOfferResponse_V1, completion: ((link: string) => void), error?: ((err: any) => void)) {
-    this.createJourneyTemplateLink(plan, offer, plan.title, Location.journeyTemplateDetailPreview, completion)
+    this.createJourneyTemplateLink(plan, offer, plan.title, Location.journeyTemplateDetail, completion)
   }
 
   public createTrainingPlanTestLink(plan: IPlanPublicInfo, completion: ((link: string) => void), error?: ((err: any) => void)) {
