@@ -121,11 +121,11 @@ export class TrainingPlanTemplateComponent implements OnInit {
                 ctaUrl: planOnlyLink,
                 navType: NavigationType.TemplateDetail
               }
-
             } else {
               planOnlyLink = appLink
+              this.defaultPlanLink = appLink
               this.uiState.navConfig = {
-                ctaText: "Start Plan",
+                ctaText: "Start Free Plan",
                 ctaUrl: appLink,
                 navType: NavigationType.TemplateDetail
               }
