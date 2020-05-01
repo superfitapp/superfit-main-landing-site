@@ -108,9 +108,9 @@
     <div class="container">
       <div class="row justify-content-center text-center mb-5">
         <div class="col-xl-8 col-lg-9">
-          <h2 class="display-5 mx-xl-6">My Training Plans</h2>
+          <h2 class="display-5 mx-xl-6">My Plans</h2>
           <p class="lead text-muted">
-            A Training Plan is a set of workouts over several weeks designed to help you reach a goal.
+            A Plan is a set of workouts designed around a goal.
           </p>
         </div>
       </div>
@@ -121,7 +121,7 @@
 
       <div *ngIf="plans?.length == 0" class="row justify-content-center text-center mb-5">
         <p>
-          No public training plans at the moment.
+          No public plans at the moment.
         </p>
       </div>
 
@@ -143,7 +143,9 @@
                 <div class="icon-round icon-round-sm">
                   <!-- <span class="align-content-center" style="font-size: 1.3em;">🚀</span> -->
                 </div>
-                <span class="badge bg-primary-2 text-light">{{plan.phases.length}} Phases</span>
+                <span *ngIf="planTypeBadgeMap[plan.id]; let badgeInfo" class="badge badge-pill navigate"
+                  [ngStyle]="{'background-color': badgeInfo.color, 'color': badgeInfo.textColor }">
+                  {{badgeInfo.title}}</span>
                 <div class="pt-2" style="z-index: 1;">
                   <h3>{{plan.title}}</h3>
                   <p class="lead">
@@ -162,6 +164,17 @@
           </a>
           <p class="lead">{{plan.shortDescription}}</p>
           <ul class="list-unstyled mb-0">
+            <li *ngIf="plan.sport" class=" d-flex py-2">
+              <div class="icon-round icon-round-xs bg-primary-2 mr-2">
+                <svg class="icon bg-primary-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M18.1206 5.4111C18.5021 4.92016 19.1753 4.86046 19.6241 5.27776C20.073 5.69506 20.1276 6.43133 19.746 6.92227L10.6794 18.5889C10.2919 19.0876 9.60523 19.1401 9.15801 18.7053L4.35802 14.0386C3.91772 13.6106 3.87806 12.8732 4.26944 12.3916C4.66082 11.91 5.33503 11.8666 5.77533 12.2947L9.76023 16.1689L18.1206 5.4111Z"
+                    fill="#212529" />
+                </svg>
+              </div>
+              <span>{{plan.sport | titlecase }}</span>
+            </li>
             <li class=" d-flex py-2">
               <div class="icon-round icon-round-xs bg-primary-2 mr-2">
                 <svg class="icon bg-primary-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -170,26 +183,9 @@
                     d="M18.1206 5.4111C18.5021 4.92016 19.1753 4.86046 19.6241 5.27776C20.073 5.69506 20.1276 6.43133 19.746 6.92227L10.6794 18.5889C10.2919 19.0876 9.60523 19.1401 9.15801 18.7053L4.35802 14.0386C3.91772 13.6106 3.87806 12.8732 4.26944 12.3916C4.66082 11.91 5.33503 11.8666 5.77533 12.2947L9.76023 16.1689L18.1206 5.4111Z"
                     fill="#212529" />
                 </svg>
-
               </div>
-              <span>
-                <span class="font-weight-bold">{{ plan.level | titlecase}}:
-                </span>{{experienceLevelText(plan)}}</span>
+              <span>{{trainingLevelManager.title(plan.level)}}</span>
             </li>
-
-            <!-- <li class=" d-flex py-2">
-              <div class="icon-round icon-round-xs bg-primary-2 mr-2">
-                <svg class="icon bg-primary-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M18.1206 5.4111C18.5021 4.92016 19.1753 4.86046 19.6241 5.27776C20.073 5.69506 20.1276 6.43133 19.746 6.92227L10.6794 18.5889C10.2919 19.0876 9.60523 19.1401 9.15801 18.7053L4.35802 14.0386C3.91772 13.6106 3.87806 12.8732 4.26944 12.3916C4.66082 11.91 5.33503 11.8666 5.77533 12.2947L9.76023 16.1689L18.1206 5.4111Z"
-                    fill="#212529" />
-                </svg>
-
-              </div>
-              <span
-                class="font-weight-bold">{{plan.accessLevel == "free" ? 'Free' : "Available on SuperFit Pro"}}</span>
-            </li> -->
           </ul>
         </div>
       </div>

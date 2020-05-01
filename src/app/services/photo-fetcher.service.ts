@@ -4,7 +4,7 @@ import {
   IPhotoResponse_V1,
   IVideoResponse_V1,
   IAthlete_Response_V1
-} from "superfitjs";
+} from "@superfitapp/superfitjs";
 require('es6-promise/auto')
 import { tap, finalize, catchError, take, map } from "rxjs/operators"
 import { Observable } from 'rxjs';

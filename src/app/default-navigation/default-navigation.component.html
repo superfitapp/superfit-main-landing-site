@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-md navbar-light border-bottom-0 bg-white position-fixed scrolled" data-sticky="top">
     <div class="container">
       <a class="navbar-brand fade-page" href="https://superfitapp.com">
-        <img style="object-fit: cover" height="24" src="./assets/img/superfit-logo.png" alt="SuperFit">
+        <img style="object-fit: cover" height="40" src="./assets/img/logo-black.png" alt="SuperFit">
       </a>
     </div>
   </nav>
@@ -12,7 +12,7 @@
   <nav class="navbar bg-white navbar-expand border-bottom-0 position-fixed scrolled" data-sticky="top">
     <div class="container">
       <a class="navbar-brand fade-page" href="/">
-        <img style="object-fit: cover" height="24" src="./assets/img/superfit-logo.png" alt="SuperFit">
+        <img style="object-fit: cover" height="40" src="./assets/img/logo-black.png" alt="SuperFit">
       </a>
 
       <div *ngIf="uiState?.navConfig.ctaText" class="navbar-collapse justify-content-end">
@@ -20,7 +20,7 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a [href]="uiState.navConfig.ctaUrl" target="_blank"
-                class="btn btn-primary-3 text-white">{{uiState.navConfig.ctaText}}</a>
+                class="btn btn-primary-3 text-white">{{uiState.navConfig.ctaText | titlecase}}</a>
             </li>
           </ul>
         </div>

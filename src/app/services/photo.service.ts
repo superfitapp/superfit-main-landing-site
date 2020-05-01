@@ -6,7 +6,7 @@
 // import {
 //   IPhotoResponse_V1,
 //   IVideoResponse_V1
-// } from "superfitjs";
+// } from "@superfitapp/superfitjs";
 // import { ApiService } from './api.service';
 
 // export const enum ThumbnailSize {

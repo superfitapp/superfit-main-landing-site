@@ -7,6 +7,9 @@
         <div class="col-lg-10 col-xl-8">
           <div class="d-flex justify-content-between align-items-center mb-3">
           </div>
+          <p *ngIf="badgeInfo | async as topBadgeInfo" class="badge badge-pill navigate"
+            [ngStyle]="{'background-color': topBadgeInfo.color, 'color': topBadgeInfo.textColor }">
+            {{topBadgeInfo.title}}</p>
           <h1>{{info.planInfo.title}}</h1>
           <div class="d-flex align-items-center">
             <a [href]="info.username">
@@ -27,8 +30,11 @@
       <div class="row justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-10">
           <article class="article">
-            <p class="lead">
+            <p *ngIf="info.planInfo.fullDescription" class="lead">
               {{info.planInfo.fullDescription}}
+            </p>
+            <p *ngIf="!info.planInfo.fullDescription" class="lead">
+              {{info.planInfo.shortDescription}}
             </p>
           </article>
         </div>
@@ -37,8 +43,7 @@
         <div class="col-xl-7 col-lg-8 col-md-10">
 
           <div class="row">
-            <div class="col-4">
-
+            <div *ngIf="info.planInfo.sport" class="col-4">
               <svg class="icon icon-md bg-primary-2" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -49,12 +54,9 @@
               <div class="mt-2">
                 <h5>{{info.planInfo.sport | titlecase }}</h5>
               </div>
-              <p>
-
-              </p>
             </div>
 
-            <div class="col-4">
+            <div *ngIf="info.planInfo.planType == 'class'" class="col-4">
               <svg class="icon icon-md bg-primary-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Icon For Clock</title>
@@ -70,11 +72,38 @@
               </svg>
 
               <div class="mt-2">
-                <h5>{{numberOfWeeks}} Week Training Plan</h5>
+                <h5>One Session</h5>
+              </div>
+            </div>
+
+            <div *ngIf="info.planInfo.planType == 'plan'" class="col-4">
+              <svg class="icon icon-md bg-primary-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>Icon For Clock</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <rect opacity="0" x="0" y="0" width="24" height="24"></rect>
+                  <path
+                    d="M12,22 C7.02943725,22 3,17.9705627 3,13 C3,8.02943725 7.02943725,4 12,4 C16.9705627,4 21,8.02943725 21,13 C21,17.9705627 16.9705627,22 12,22 Z"
+                    fill="#000000" opacity="0.3"></path>
+                  <path
+                    d="M11.9630156,7.5 L12.0475062,7.5 C12.3043819,7.5 12.5194647,7.69464724 12.5450248,7.95024814 L13,12.5 L16.2480695,14.3560397 C16.403857,14.4450611 16.5,14.6107328 16.5,14.7901613 L16.5,15 C16.5,15.2109164 16.3290185,15.3818979 16.1181021,15.3818979 C16.0841582,15.3818979 16.0503659,15.3773725 16.0176181,15.3684413 L11.3986612,14.1087258 C11.1672824,14.0456225 11.0132986,13.8271186 11.0316926,13.5879956 L11.4644883,7.96165175 C11.4845267,7.70115317 11.7017474,7.5 11.9630156,7.5 Z"
+                    fill="#000000"></path>
+                </g>
+              </svg>
+
+              <div class="mt-2">
+                <h5>{{numberOfWeeks}} Week Plan</h5>
               </div>
             </div>
             <div class="col-4">
-              <svg class="icon icon-md bg-primary-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+              <!-- <div *ngIf="data?.level" class="mb-4" style="display: inline-block;"> -->
+              <img class="icon icon-md" height="24px" style="object-fit: contain; width: 85px;"
+                [src]="trainingLevelManager.imageUrl(info.planInfo.level)">
+              <!-- <small class="text-muted">
+                  {{trainingLevelManager.title(data.level)}}
+                </small> -->
+              <!-- </div> -->
+              <!-- <svg class="icon icon-md bg-primary-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Icon For Fire</title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -83,9 +112,9 @@
                     d="M14,7 C13.6666667,10.3333333 12.6666667,12.1167764 11,12.3503292 C11,12.3503292 12.5,6.5 10.5,3.5 C10.5,3.5 10.287918,6.71444735 8.14498739,10.5717225 C7.14049032,12.3798172 6,13.5986793 6,16 C6,19.428689 9.51143904,21.2006583 12.0057195,21.2006583 C14.5,21.2006583 18,20.0006172 18,15.8004732 C18,14.0733981 16.6666667,11.1399071 14,7 Z"
                     fill="#000000"></path>
                 </g>
-              </svg>
+              </svg> -->
               <div class="mt-2">
-                <h5>{{experienceLevel}}</h5>
+                <h5>{{trainingLevelManager.title(info.planInfo.level)}}</h5>
               </div>
             </div>
           </div>
@@ -93,7 +122,7 @@
       </div>
     </div>
   </section>
-  <section class="bg-white">
+  <section *ngIf="info.planInfo.planType == 'plan'" class="bg-white">
     <div class="container col-xl-8 col-lg-10 col-md-10">
       <div class="row justify-content-around align-items-center">
         <div class="col-xl-5 col-md-5">
@@ -101,7 +130,6 @@
             <div class="row o-hidden o-lg-visible">
               <div class="col d-flex flex-column align-items-center">
                 <ol class="process-vertical">
-
                   <li *ngFor="let phase of info.planInfo.phases" data-aos="fade-left">
                     <div class="process-circle bg-primary"></div>
                     <div>
@@ -135,7 +163,13 @@
             </div>
           </div>
         </div>
-        <a *ngIf="defaultPlanLink" [href]="defaultPlanLink" class="btn btn-success btn-lg mt-3" angulartics2On="click"
+      </div>
+    </div>
+  </section>
+  <section *ngIf="defaultPlanLink" class="bg-white">
+    <div class="container col-xl-8 col-lg-10 col-md-10">
+      <div class="row justify-content-around align-items-center">
+        <a [href]="defaultPlanLink" class="btn btn-success btn-lg mt-3" angulartics2On="click"
           angularticsAction="DownloadClickTemplateDetail" angularticsLabel="downloadButton"
           angularticsValue="downloadForiOS" [angularticsProperties]="{'location': 'Template Detail Bottom'}">
           Start {{info.planInfo.title}} on iOS

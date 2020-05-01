@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as branch from 'branch-sdk'
-import { PlanOfferResponse_V1, IPlanPublicInfo } from 'superfitjs';
+import { PlanOfferResponse_V1, IPlanPublicInfo } from "@superfitapp/superfitjs";
 import { SFPhotoFetcherService, ThumbnailSize } from './photo-fetcher.service';
 import { environment } from '../../environments/environment';
 

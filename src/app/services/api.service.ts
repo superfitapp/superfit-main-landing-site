@@ -15,7 +15,7 @@ import {
   IPhotoResponse_V1,
   IPlanAndUsernameInfo,
   IPlanPublicInfo
-} from "superfitjs";
+} from "@superfitapp/superfitjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UIStateService, NavigationType } from '../../services/ui-state.service';
 import { Observable, throwError } from 'rxjs';
-import { IPlanAndUsernameInfo } from 'superfitjs';
+import { IPlanAndUsernameInfo, PlanType, TrainingLevelManager } from "@superfitapp/superfitjs";
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap, catchError } from 'rxjs/operators';
-import TemplateUtils from '../template-utils'
+import { tap, catchError, map } from 'rxjs/operators';
+import TemplateUtils, { PlanTypeBadge } from '../template-utils'
 import { SEOService } from '../../services/seo.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
@@ -29,10 +29,11 @@ interface PlanOfferViewModel {
   ]
 })
 export class TrainingPlanTemplateComponent implements OnInit {
-
+  trainingLevelManager = new TrainingLevelManager()
   planProInfo: Observable<IPlanAndUsernameInfo>
+  badgeInfo: Observable<PlanTypeBadge>
   numberOfWeeks?: number
-  experienceLevel?: string
+  // experienceLevel?: string
   planOfferViewModel?: PlanOfferViewModel
   defaultPlanLink?: string
   planOnlyCta = "Start Plan Now"
@@ -65,7 +66,6 @@ export class TrainingPlanTemplateComponent implements OnInit {
           }
 
           this.numberOfWeeks = TemplateUtils.trainingPlanTemplateTotalWeeks(info.planInfo)
-          this.experienceLevel = TemplateUtils.experienceLevelText(info.planInfo)
           this.seoService.updateTitle(info.planInfo.title);
           this.seoService.updateDescription(info.planInfo.shortDescription)
           this.seoService.updateOgUrl()
@@ -85,7 +85,7 @@ export class TrainingPlanTemplateComponent implements OnInit {
               this.defaultPlanLink = defaultLink
 
               this.uiState.navConfig = {
-                ctaText: "Start Free Plan",
+                ctaText: `Start this ${info.planInfo.planType}`,
                 ctaUrl: defaultLink,
                 navType: NavigationType.TemplateDetail
               }
@@ -125,7 +125,7 @@ export class TrainingPlanTemplateComponent implements OnInit {
               planOnlyLink = appLink
               this.defaultPlanLink = appLink
               this.uiState.navConfig = {
-                ctaText: "Start Free Plan",
+                ctaText: `Start this ${info.planInfo.planType}`,
                 ctaUrl: appLink,
                 navType: NavigationType.TemplateDetail
               }
@@ -145,10 +145,12 @@ export class TrainingPlanTemplateComponent implements OnInit {
           this.router.navigate(["/404"]);
           return throwError(error)
         }))
+
+    this.badgeInfo = this.apiService
+      .fetchPlanInfo(templateId, planOfferId)
+      .pipe(map(x => TemplateUtils.planBadge(x.planInfo)))
   }
 
   async ngOnInit() {
   }
-
-
 }

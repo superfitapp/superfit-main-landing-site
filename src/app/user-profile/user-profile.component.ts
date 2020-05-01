@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from '../services/api.service';
-import { Phase_Response_V1, Journey_Template_Response_V1, Level, IAthletePublicInfo, IProPublicInfo, IPlanPublicInfo } from 'superfitjs';
+import { Phase_Response_V1, Journey_Template_Response_V1, Level, IAthletePublicInfo, IProPublicInfo, IPlanPublicInfo, TrainingLevelManager } from "@superfitapp/superfitjs";
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { UIStateService } from '../services/ui-state.service';
 import { SFPhotoFetcherService } from '../services/photo-fetcher.service';
+import TemplateUtils, { PlanTypeBadge } from '../remote/template-utils';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,10 +15,14 @@ import { SFPhotoFetcherService } from '../services/photo-fetcher.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  trainingLevelManager = new TrainingLevelManager()
   private username?: string
   private userPublicProfile$: Observable<IAthletePublicInfo>
   professionalProfile$: Observable<IProPublicInfo>
   plans: IPlanPublicInfo[] = []
+  planTypeBadgeMap: {
+    [planId: string]: PlanTypeBadge;
+  } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -67,9 +72,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchPlans() {
-    this.apiService.fetchPlansInfo(this.username, this.plans.length, 5)
-      .subscribe(plans => {
-        this.plans = this.plans.concat(plans)
+    this.apiService
+      .fetchPlansInfo(this.username, this.plans.length, 5)
+      .subscribe(planInfos => {
+        this.plans = this.plans.concat(planInfos)
+        for (let info of planInfos) {
+          this.planTypeBadgeMap[info.id] = TemplateUtils.planBadge(info)
+        }
       }, error => {
         throw error
       })
@@ -84,21 +93,6 @@ export class UserProfileComponent implements OnInit {
     }
 
     return ""
-  }
-
-  experienceLevelText(journey: Journey_Template_Response_V1): string {
-    switch (journey.level.toLowerCase()) {
-      case Level.Beginner:
-        return "Perfect for all fitness levels"
-      case Level.Intermediate:
-        return "Some training experience preferred"
-      case Level.Advanced:
-        return "Advanced fitness experience preferred"
-      case Level.Pro:
-        return "Advanced movement and strength experience required"
-      default:
-        return "Some training experience preferred"
-    }
   }
 
   mainImageForPlan(plan: Journey_Template_Response_V1): string {
