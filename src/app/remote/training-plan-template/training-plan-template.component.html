@@ -13,7 +13,7 @@
           <h1>{{info.planInfo.title}}</h1>
           <div class="d-flex align-items-center">
             <a [href]="info.username">
-              <img [sfPhoto]="info.planInfo.owner?.profilePhotoId" [sfSize]=512 alt="Avatar" class="avatar mr-2">
+              <img [sfPhoto]="info.planInfo.owner?.profilePhotoId" sfSize="512" alt="Avatar" class="avatar mr-2">
             </a>
             <div>
               <div>by <a [href]="info.username"> {{info.planInfo.owner.name}}</a>
@@ -133,7 +133,7 @@
                   <li *ngFor="let phase of info.planInfo.phases" data-aos="fade-left">
                     <div class="process-circle bg-primary"></div>
                     <div>
-                      <img [sfPhoto]="phase.mainImagePhotoId" [sfSize]=256 alt="Phase Image"
+                      <img [sfPhoto]="phase.mainImagePhotoId" sfSize="256" alt="Phase Image"
                         class="avatar avatar-lg mb-2">
                       <h4 class="mb-0">{{phase.title}}</h4>
                       <span class="text-small text-muted">{{phase.numberOfWeeks}} Weeks</span>

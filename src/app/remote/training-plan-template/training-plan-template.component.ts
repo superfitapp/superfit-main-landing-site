@@ -8,8 +8,8 @@ import { tap, catchError, map } from 'rxjs/operators';
 import TemplateUtils, { PlanTypeBadge } from '../template-utils'
 import { SEOService } from '../../services/seo.service';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { environment } from 'src/environments/environment';
-import { SFPhotoFetcherService } from 'src/app/services/photo-fetcher.service';
+import { environment } from '../../../environments/environment';
+import { SFPhotoFetcherService } from '../../services/photo-fetcher.service';
 import { DeepLinkService } from '../../services/deep-link.service';
 
 interface PlanOfferViewModel {

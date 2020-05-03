@@ -5,7 +5,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { Angulartics2Module } from 'angulartics2';
 import { ApiService } from './services/api.service';
-import { CurrentUserService } from './services/current-user.service';
 import { SEOService } from './services/seo.service';
 import { RemotelyComponent } from './remote/remotely.component'
 import { RootLandingComponent } from './root-landing/root-landing.component';
@@ -43,7 +42,7 @@ import { environment } from '../environments/environment';
   imports: [
     LazyImageModule,
     PhotoLoaderModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
@@ -54,7 +53,6 @@ import { environment } from '../environments/environment';
   providers: [
     AngularFireStorage,
     ApiService,
-    CurrentUserService,
     SEOService,
   ],
   bootstrap: [AppComponent]

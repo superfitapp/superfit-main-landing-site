@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { environment } from 'src/environments/environment';
-import * as branch from 'branch-sdk'
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,7 @@ export class AppComponent {
     this.angulartics2GoogleAnalytics.startTracking()
 
     var options = { no_journeys: false };
-    branch.init(environment.branch_key, options, function (err, data) {
-    });
+    // branch.init(environment.branch_key, options, function (err, data) {
+    // });
   }
 }

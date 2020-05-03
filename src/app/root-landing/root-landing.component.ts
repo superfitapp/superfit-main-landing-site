@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { SEOService } from '../services/seo.service';
 import { UIStateService, NavigationType } from '../services/ui-state.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root-landing',
