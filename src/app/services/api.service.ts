@@ -14,7 +14,8 @@ import {
   IVideoResponse_V1,
   IPhotoResponse_V1,
   IPlanAndUsernameInfo,
-  IPlanPublicInfo
+  IPlanPublicInfo,
+  PlanType
 } from "@superfitapp/superfitjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
@@ -103,6 +104,7 @@ export class ApiService {
   }
 
   fetchPlansInfo(
+    planType: PlanType,
     username: string,
     offset: number,
     take: number = 5
@@ -111,6 +113,7 @@ export class ApiService {
     return this.http.get<IPlanPublicInfo[]>(url, {
       params: {
         offset: offset.toString(),
+        type: planType,
         take: take.toString()
       }
     })

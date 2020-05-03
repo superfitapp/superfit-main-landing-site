@@ -1,0 +1,28 @@
+.scrolling-wrapper-flexbox {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  padding: 0 150px !important;
+
+  .class-card {
+    flex: 0 0 auto !important;
+    margin-right: 30px !important;
+  }
+
+  @media (max-width: 900px) {
+    padding: 0 50px !important;
+  }
+
+  @media (max-width: 600px) {
+    margin-right: 10px !important;
+  }
+}
+
+.scrolling-wrapper-flexbox {
+  margin-bottom: 20px !important;
+  width: 100% !important;
+  -webkit-overflow-scrolling: touch !important;
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+}

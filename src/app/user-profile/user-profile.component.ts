@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from '../services/api.service';
-import { Phase_Response_V1, Journey_Template_Response_V1, Level, IAthletePublicInfo, IProPublicInfo, IPlanPublicInfo, TrainingLevelManager } from "@superfitapp/superfitjs";
+import { Phase_Response_V1, Journey_Template_Response_V1, Level, IAthletePublicInfo, IProPublicInfo, IPlanPublicInfo, TrainingLevelManager, PlanType } from "@superfitapp/superfitjs";
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import TemplateUtils, { PlanTypeBadge } from '../remote/template-utils';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
   trainingLevelManager = new TrainingLevelManager()
@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit {
   private userPublicProfile$: Observable<IAthletePublicInfo>
   professionalProfile$: Observable<IProPublicInfo>
   plans: IPlanPublicInfo[] = []
+  classes: IPlanPublicInfo[] = []
   planTypeBadgeMap: {
     [planId: string]: PlanTypeBadge;
   } = {};
@@ -45,6 +46,7 @@ export class UserProfileComponent implements OnInit {
       .pipe(
         tap(profile => {
           if (profile.proProfile) {
+            this.fetchClasses()
             this.fetchPlans()
           }
         }),
@@ -73,12 +75,22 @@ export class UserProfileComponent implements OnInit {
 
   fetchPlans() {
     this.apiService
-      .fetchPlansInfo(this.username, this.plans.length, 5)
+      .fetchPlansInfo(PlanType.Plan, this.username, this.plans.length, 5)
       .subscribe(planInfos => {
         this.plans = this.plans.concat(planInfos)
         for (let info of planInfos) {
           this.planTypeBadgeMap[info.id] = TemplateUtils.planBadge(info)
         }
+      }, error => {
+        throw error
+      })
+  }
+
+  fetchClasses() {
+    this.apiService
+      .fetchPlansInfo(PlanType.Class, this.username, this.plans.length)
+      .subscribe(classInfos => {
+        this.classes = this.classes.concat(classInfos)
       }, error => {
         throw error
       })

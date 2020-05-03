@@ -4,7 +4,6 @@
     <div class="container" data-aos="fade-up">
       <div class="row align-items-center justify-content-around">
         <div class="col-md-5">
-
           <div class="square">
             <img style="position: absolute;width: 100%;height: 100%;" [sfPhoto]="proProfile.profilePhotoId"
               alt="Profile Image" class="rounded-circle layer-2">
@@ -101,7 +100,38 @@
         </path>
       </svg>
     </div>
+  </section>
 
+  <section class="bg-primary-alt mx-0 pb-2 px-0">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-xl-8 col-lg-9">
+        <h2 class="display-5 mx-xl-6">My Classes</h2>
+        <p class="text-muted">
+          Classes are one-time sessions.
+        </p>
+      </div>
+    </div>
+    <div class="scrolling-wrapper-flexbox">
+      <a *ngFor="let class of classes" [routerLink]="['/plans/'+ class.id]">
+        <div
+          class="class-card card card-icon-3 card-body justify-content-between shadow-3d rotate-left jarallax d-flex text-light"
+          style="width: 250px; min-height: 300px;">
+
+          <img src="https://superfit.nyc3.digitaloceanspaces.com/assets/hero-gradient.jpg" [sfSize]=512 alt="Image"
+            class="jarallax-img">
+
+          <span class="badge badge-pill navigate">
+            Title</span>
+          <div class="pt-2" style="z-index: 1;">
+            <h3>Title</h3>
+            <p class="lead">
+              {{class.title}}
+              {{class.phases[0].workoutTemplates[0].workoutType.title}}
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
   </section>
 
   <section class="bg-primary-alt">
@@ -109,8 +139,8 @@
       <div class="row justify-content-center text-center mb-5">
         <div class="col-xl-8 col-lg-9">
           <h2 class="display-5 mx-xl-6">My Plans</h2>
-          <p class="lead text-muted">
-            A Plan is a set of workouts designed around a goal.
+          <p class="text-muted">
+            Plans are multi-week workouts for achieving a long-term goal.
           </p>
         </div>
       </div>
@@ -118,7 +148,6 @@
 
 
     <div class="container">
-
       <div *ngIf="plans?.length == 0" class="row justify-content-center text-center mb-5">
         <p>
           No public plans at the moment.
@@ -131,37 +160,31 @@
           <div class="row justify-content-center">
 
             <div class="col-xl-9 col-lg-10">
-
-              <div
-                class="card card-icon-3 card-body justify-content-between shadow-3d rotate-left jarallax d-flex text-light">
+              <a [routerLink]="['/plans/'+ plan.id]">
                 <div
-                  style="position:absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.2);">
-                </div>
+                  class="card card-icon-3 card-body justify-content-between shadow-3d rotate-left jarallax d-flex text-light">
+                  <div
+                    style="position:absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.3);">
+                  </div>
 
-                <img [sfPhoto]="plan.mainImagePhotoId" [sfSize]=512 alt="Image" class="jarallax-img">
+                  <img [sfPhoto]="plan.mainImagePhotoId" [sfSize]=512 alt="Image" class="jarallax-img">
 
-                <div class="icon-round icon-round-sm">
-                  <!-- <span class="align-content-center" style="font-size: 1.3em;">🚀</span> -->
+                  <div class="icon-round icon-round-sm">
+                    <!-- <span class="align-content-center" style="font-size: 1.3em;">🚀</span> -->
+                  </div>
+                  <span *ngIf="planTypeBadgeMap[plan.id]; let badgeInfo" class="badge badge-pill navigate"
+                    [ngStyle]="{'background-color': badgeInfo.color, 'color': badgeInfo.textColor }">
+                    {{badgeInfo.title}}</span>
+                  <div class="" style="z-index: 1;">
+                    <h3>{{plan.title}}</h3>
+                  </div>
                 </div>
-                <span *ngIf="planTypeBadgeMap[plan.id]; let badgeInfo" class="badge badge-pill navigate"
-                  [ngStyle]="{'background-color': badgeInfo.color, 'color': badgeInfo.textColor }">
-                  {{badgeInfo.title}}</span>
-                <div class="pt-2" style="z-index: 1;">
-                  <h3>{{plan.title}}</h3>
-                  <p class="lead">
-                    {{plan.sport | titlecase }} Training Plan
-                  </p>
-                </div>
-
-              </div>
+              </a>
             </div>
           </div>
         </div>
 
-        <div class="col-md-6" data-aos="fade">
-          <a [routerLink]="['/plans/'+ plan.id]">
-            <h3 class="h1" style="text-decoration: underline;">{{plan.title}}</h3>
-          </a>
+        <div class="col-md-6 mb-sm-3" data-aos="fade">
           <p class="lead">{{plan.shortDescription}}</p>
           <ul class="list-unstyled mb-0">
             <li *ngIf="plan.sport" class=" d-flex py-2">

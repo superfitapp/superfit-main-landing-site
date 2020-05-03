@@ -90,8 +90,10 @@ export class TrainingPlanTemplateComponent implements OnInit {
                 navType: NavigationType.TemplateDetail
               }
             })
+            if (this.uiState.navConfig) {
+              this.planOnlyCta = this.uiState.navConfig.ctaText
+            }
 
-            this.planOnlyCta = this.uiState.navConfig.ctaText
             return
           }
 
@@ -131,7 +133,10 @@ export class TrainingPlanTemplateComponent implements OnInit {
               }
             }
 
-            this.planOnlyCta = this.uiState.navConfig.ctaText
+            if (this.uiState.navConfig) {
+              this.planOnlyCta = this.uiState.navConfig.ctaText
+            }
+
 
             this.planOfferViewModel = {
               planOnlyPrice: planOnlyPrice,

@@ -15,7 +15,6 @@
   },
   "private": true,
   "dependencies": {
-    "@superfitapp/superfitjs": "2.1.1-beta.4",
     "@angular/common": "^9.0.0",
     "@angular/compiler": "^9.0.0",
     "@angular/core": "^9.0.0",
@@ -24,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^9.0.0",
     "@angular/platform-server": "^9.0.0",
     "@angular/router": "^9.0.0",
+    "@superfitapp/superfitjs": "2.1.1-beta.4",
     "angulartics2": "^8.3.0",
     "branch-sdk": "^2.52.3",
     "compression": "^1.7.4",

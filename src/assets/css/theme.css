@@ -4892,6 +4892,12 @@ input[type="button"].btn-block {
   }
 }
 
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1rem;
+  }
+}
+
 .card-group {
   display: flex;
   flex-direction: column;
@@ -5146,8 +5152,8 @@ a.badge:focus {
 }
 
 .badge-pill {
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: 0.7rem;
+  padding-left: 0.7rem;
   border-radius: 10rem;
 }
 
@@ -11136,13 +11142,13 @@ img.bg-image {
   }
 }
 
-.card + .card {
+/* .card + .card {
   margin-top: 1.5rem;
-}
+} */
 
-.card.card-sm + .card-sm {
+/* .card.card-sm + .card-sm {
   margin-top: 0.75rem;
-}
+} */
 
 a.card {
   color: #495057;
