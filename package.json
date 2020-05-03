@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "postinstall": "npm run build:ssr",
     "deploy-prod": "npm run swap-prod && ng build --aot --prod && firebase use production && firebase deploy --only hosting",
     "deploy-staging": "npm run swap-staging && ng build --configuration=staging && firebase use staging && firebase deploy --only hosting",
     "swap-prod": "cp prod.firebase.json firebase.json",
@@ -12,6 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "start:heroku": "node dist/server",
     "dev:ssr": "ng run onsuperfit:serve-ssr",
     "serve:ssr": "node dist/onsuperfit/server/main.js --trace-warnings --trace-deprecation",
     "build:ssr": "ng build --prod && ng run onsuperfit:server:production",
